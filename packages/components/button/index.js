@@ -1,8 +1,5 @@
-import LKButton from './index.vue';
-
-LKButton.install = function (Vue) {
-  Vue.component(LKButton.name, LKButton)
-}
+import LkButton from './src/button.vue'
+import LkButtonGroup from './src/buttonGroup.vue'
 
 //导出组件
-export default LKButton;
+export { LkButton, LkButtonGroup };

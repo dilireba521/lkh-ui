@@ -1,5 +1,5 @@
 /* Prefix */
-$PF: lkh;
+$PF: lk;
 
 /* Color */
 $c0: #000000;
@@ -45,3 +45,14 @@ $border-warning: #f5dab1;
 $border-danger: #fbc4c4;
 $border-dark: #d3d4d6;
 $border-white: #ffffff;
+
+$general: $c0, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $ca, $cb, $cc, $cd,
+  $ce, $cf;
+$special: $primary, $success, $info, $warning, $danger, $dark, $white;
+$lightSpecial: $light-primary, $light-success, $light-info, $light-warning,
+  $light-danger, $light-dark, $light-white;
+$borderLightSpecial: $border-primary, $border-success, $border-info,
+  $border-warning, $border-danger, $border-dark, $border-white;
+
+$generalName: c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, ca, cb, cc, cd, ce, cf;
+$specialName: primary, success, info, warning, danger, dark, white;

@@ -1,0 +1,75 @@
+.#{$PF}-btn {
+  display: inline-block;
+  line-height: 1;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow: visible;
+  cursor: pointer;
+  font-weight: 500;
+  transition: border 0.2s linear, color 0.2s linear, width 0.2s linear,
+    background-color 0.2s linear;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0 12px;
+
+  @for $i from 1 through length($specialName) {
+    $key: nth($specialName, $i);
+    &.#{$PF}-light-bg-#{$key}[disabled]:hover {
+      border-color: nth($borderLightSpecial, $i);
+      background-color: nth($lightSpecial, $i);
+      color: nth($special, $i);
+    }
+    &.#{$PF}-light-bg-#{$key}:hover {
+      border-color: nth($special, $i);
+      background-color: nth($special, $i);
+      color: $cf;
+    }
+  }
+}
+.#{$PF}-btn[disabled],
+.#{$PF}-btn[disabled]:hover {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.#{$PF}-btn-group {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: middle;
+  line-height: 1;
+  border-collapse: separate;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  &:after,
+  &:before {
+    display: table;
+    content: "";
+  }
+
+  .#{$PF}-btn {
+    border-radius: 0px !important;
+  }
+  .#{$PF}-btn:first-child {
+    border-radius: 4px 0 0 4px !important;
+  }
+  .#{$PF}-btn:last-child {
+    border-radius: 0 4px 4px 0 !important;
+  }
+  .#{$PF}-btn:not(:last-child) {
+    margin-right: -1px;
+  }
+  .#{$PF}-btn[class*="#{$PF}-border-"] {
+    border-left-color: hsla(0, 0%, 100%, 0.5);
+    border-right-color: hsla(0, 0%, 100%, 0.5);
+  }
+  .#{$PF}-btn[class*="#{$PF}-border-"]:first-child {
+    border-left-color: transparent;
+  }
+  .#{$PF}-btn[class*="#{$PF}-border-"]:last-child {
+    border-right-color: transparent;
+  }
+}
