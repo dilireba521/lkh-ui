@@ -1,0 +1,102 @@
+.#{$PF}-divider {
+  position: relative;
+  color: $c3;
+  font-size: 14px;
+
+  &.dashed {
+    &::before {
+      border-bottom: 1px $c9 dashed !important;
+    }
+
+    &::after {
+      border-bottom: 1px $c9 dashed !important;
+    }
+  }
+
+  &.nodivider {
+    &::before {
+      display: none;
+    }
+  }
+
+  &.#{$PF}-divider-horizontal {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    align-items: center;
+    padding: 6px 0;
+
+    &::before,
+    &::after {
+      content: "";
+      height: 1px;
+      border-bottom: 1px $ce solid;
+    }
+  }
+
+  &.#{$PF}-divider-left {
+    &::before {
+      width: 30px;
+    }
+
+    &::after {
+      -webkit-box-flex: 1;
+      flex: 1;
+    }
+  }
+
+  &.#{$PF}-divider-center {
+    &::before {
+      -webkit-box-flex: 1;
+      flex: 1;
+    }
+
+    &::after {
+      -webkit-box-flex: 1;
+      flex: 1;
+    }
+  }
+
+  &.#{$PF}-divider-right {
+    &::before {
+      -webkit-box-flex: 1;
+      flex: 1;
+    }
+
+    &::after {
+      width: 30px;
+    }
+  }
+
+  &.#{$PF}-divider-vertical {
+    width: 1px;
+    height: 12px;
+    margin: 0 8px;
+    vertical-align: middle;
+    display: inline-block;
+
+    &::before {
+      content: "";
+      width: 1px;
+      height: 12px;
+      border-right: 1px $c6 solid;
+      display: block;
+      z-index: 0;
+    }
+
+    &.dashed {
+      &::before {
+        border-left: 1px $c9 dashed !important;
+      }
+    }
+  }
+
+  .#{$PF}-inner-text {
+    padding: 0 18px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+}

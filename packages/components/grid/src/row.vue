@@ -26,25 +26,39 @@ export default {
   },
   computed: {
     gridClass() {
-      return "";
+      return [
+        "lk-row",
+        {
+          [`lk-${this.type}`]: !!this.type,
+          [`lk-align-${this.align}`]: !!this.align,
+          [`lk-justify-${this.justify}`]: !!this.justify,
+        },
+      ];
     },
     gridStyle() {
-      return "";
+      let style = {};
+      if (this.gutter != 0) {
+        style = {
+          marginLeft: this.gutter / -2 + "px",
+          marginRight: this.gutter / -2 + "px",
+        };
+      }
+      return style;
     },
   },
   watch: {
-    gutter(val) {
-      this.updateGutter(val);
-    },
+    // gutter(val) {
+    //   this.updateGutter(val);
+    // },
   },
   methods: {
-    updateGutter(val) {
-      this.$children.forEach((child) => {
-        if (child.$options.name == "lkCol" && val != 0) {
-          child.gutter = val;
-        }
-      });
-    },
+    // updateGutter(val) {
+    //   this.$children.forEach((child) => {
+    //     if (child.$options.name == "lkCol" && val != 0) {
+    //       child.gutter = val;
+    //     }
+    //   });
+    // },
   },
 };
 </script>

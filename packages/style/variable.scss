@@ -56,3 +56,29 @@ $borderLightSpecial: $border-primary, $border-success, $border-info,
 
 $generalName: c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, ca, cb, cc, cd, ce, cf;
 $specialName: primary, success, info, warning, danger, dark, white;
+
+/* Break-point
+--------------------------*/
+$gridListLength: 24;
+$--breakpointsList: xs, sm, md, lg, xl;
+$--sm: 768px !default;
+$--md: 992px !default;
+$--lg: 1200px !default;
+$--xl: 1920px !default;
+$--breakpoints: (
+  "xs": (
+    max-width: $--sm - 1,
+  ),
+  "sm": (
+    min-width: $--sm,
+  ),
+  "md": (
+    min-width: $--md,
+  ),
+  "lg": (
+    min-width: $--lg,
+  ),
+  "xl": (
+    min-width: $--xl,
+  ),
+);

@@ -1,0 +1,49 @@
+/* Grid layout */
+[class*="#{$PF}-col-"] {
+  float: left;
+  box-sizing: border-box;
+  position: relative;
+}
+.#{$PF}-row {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  zoom: 1;
+  &:after {
+    clear: both;
+  }
+}
+@for $i from 1 to $gridListLength {
+  $val: $i/$gridListLength * 100 * 1%;
+  .#{$PF}-col-#{$i} {
+    width: $val;
+  }
+  .#{$PF}-col-offset-#{$i} {
+    margin-left: $val;
+  }
+  .#{$PF}-col-pull-#{$i} {
+    right: $val;
+  }
+  .#{$PF}-col-push-#{$i} {
+    left: $val;
+  }
+}
+@each $point in $--breakpointsList {
+  @include res($point) {
+    @for $i from 1 to $gridListLength {
+      $val: $i/$gridListLength * 100 * 1%;
+      .#{$PF}-col-#{$point}-#{$i} {
+        width: $val;
+      }
+      .#{$PF}-col-#{$point}-offset-#{$i} {
+        margin-left: $val;
+      }
+      .#{$PF}-col-#{$point}-pull-#{$i} {
+        right: $val;
+      }
+      .#{$PF}-col-#{$point}-push-#{$i} {
+        left: $val;
+      }
+    }
+  }
+}

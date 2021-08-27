@@ -44,14 +44,14 @@ export default {
     btnClass() {
       let that = this;
       const fullObjs = {
-        [`lk-bg-${that.type}`]: that.type != "",
-        [`lk-border-${that.type}`]: that.type != "",
-        ["lk-cf"]: that.plain == false && that.type != "default",
+        [`lk-bg-${that.type}`]: !!that.type,
+        [`lk-border-${that.type}`]: !!that.type,
+        ["lk-cf"]: !that.plain && that.type != "default",
       };
       const plainObjs = {
-        [`lk-light-bg-${that.type}`]: that.type != "",
-        [`lk-light-border-${that.type}`]: that.type != "",
-        [`lk-${that.type}`]: that.plain == true,
+        [`lk-light-bg-${that.type}`]: !!that.type,
+        [`lk-light-border-${that.type}`]: !!that.type,
+        [`lk-${that.type}`]: that.plain,
       };
       return ["lk-btn", `lk-${this.size}`, that.plain ? plainObjs : fullObjs];
     },
