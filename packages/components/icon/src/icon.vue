@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     iconClass() {
-      return this.name ? "lk-icon-" + this.name : "";
+      return this.name ? "lk-" + this.name : "";
     },
   },
 };

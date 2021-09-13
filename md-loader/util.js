@@ -38,11 +38,13 @@ function genInlineComponentText(template, script) {
   // tips
   if (compiled.tips && compiled.tips.length) {
     compiled.tips.forEach(tip => {
+      // eslint-disable-next-line no-console
       console.warn(tip);
     });
   }
   // errors
   if (compiled.errors && compiled.errors.length) {
+    // eslint-disable-next-line no-console
     console.error(
       `\n  Error compiling template:\n${pad(compiled.source)}\n` +
       compiled.errors.map(e => `  - ${e}`).join('\n') +

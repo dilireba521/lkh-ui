@@ -20,15 +20,16 @@
   @for $i from 1 through length($specialName) {
     $key: nth($specialName, $i);
     &.#{$PF}-light-bg-#{$key}[disabled]:hover {
-      border-color: nth($borderLightSpecial, $i);
       background-color: nth($lightSpecial, $i);
       color: nth($special, $i);
     }
     &.#{$PF}-light-bg-#{$key}:hover {
-      border-color: nth($special, $i);
       background-color: nth($special, $i);
       color: $cf;
     }
+  }
+  .#{$PF}-icon + span {
+    margin-left: 3px;
   }
 }
 .#{$PF}-btn[disabled],
@@ -51,6 +52,8 @@
   }
 
   .#{$PF}-btn {
+    float: left;
+    position: relative;
     border-radius: 0px !important;
   }
   .#{$PF}-btn:first-child {

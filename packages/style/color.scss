@@ -1,38 +1,33 @@
-.#{$PF}-bg-default {
-  border-color: $default;
-  background-color: $cf;
-  color: $c4;
-}
+.#{$PF}-bg-default,
 .#{$PF}-light-bg-default {
   border-color: $default;
   background-color: $cf;
   color: $c4;
+  &:hover {
+    border-color: $border-primary;
+    color: $primary;
+    background-color: $light-primary;
+  }
+  &[disabled] {
+    border-color: $default;
+    background-color: $cf;
+    color: $c4;
+  }
 }
 .#{$PF}-light-border-default {
   border-color: $default;
 }
-.#{$PF}-btn.#{$PF}-light-bg-default[disabled]:hover {
-  border-color: $default;
-  background-color: $cf;
-  color: $c3;
-}
-.#{$PF}-btn.#{$PF}-bg-default:hover,
-.#{$PF}-btn.#{$PF}-light-bg-default:hover {
-  background-color: #ecf5ff;
-  color: $primary;
-  border-color: #c6e2ff;
-}
 
 /* Colors Style*/
 //generalColorLoop
-@for $i from 1 to length($general) {
+@for $i from 1 through length($general) {
   $key: nth($generalName, $i);
   .#{$PF}-#{$key} {
     color: nth($general, $i);
   }
 }
 //specialColorLoop
-@for $i from 1 to length($special) {
+@for $i from 1 through length($special) {
   $key: nth($specialName, $i);
   .#{$PF}-#{$key} {
     color: nth($special, $i);
@@ -41,26 +36,26 @@
 
 /* Backgrounds Style*/
 //generalBgLoop
-@for $i from 1 to length($general) {
+@for $i from 1 through length($general) {
   $key: nth($generalName, $i);
   .#{$PF}-bg-#{$key} {
     background-color: nth($general, $i);
   }
 }
 //specialBgLoop
-@for $i from 1 to length($special) {
+@for $i from 1 through length($special) {
   $key: nth($specialName, $i);
   .#{$PF}-bg-#{$key},
   .#{$PF}-bg-#{$key}[disabled]:hover {
     background-color: nth($special, $i);
   }
   .#{$PF}-bg-#{$key}:hover {
-    background-color: lighten(nth($special, $i), 20%);
-    border-color: lighten(nth($special, $i), 20%);
+    background-color: lighten(nth($special, $i), 10%);
+    border-color: lighten(nth($special, $i), 10%);
   }
 }
 //speciallightBgLoop
-@for $i from 1 to length($lightSpecial) {
+@for $i from 1 through length($lightSpecial) {
   $key: nth($specialName, $i);
   .#{$PF}-light-bg-#{$key} {
     background-color: nth($lightSpecial, $i);
@@ -69,23 +64,23 @@
 
 /* Border Style 边框颜色*/
 //generalBorderLoop
-@for $i from 1 to length($general) {
+@for $i from 1 through length($general) {
   $key: nth($generalName, $i);
   .#{$PF}-border-#{$key} {
     border-color: nth($general, $i);
   }
 }
 //specialBorderLoop
-@for $i from 1 to length($special) {
+@for $i from 1 through length($special) {
   $key: nth($specialName, $i);
   .#{$PF}-border-#{$key} {
     border-color: nth($special, $i);
   }
 }
 //specialLightBorderLoop
-@for $i from 1 to length($lightSpecial) {
+@for $i from 1 through length($lightSpecial) {
   $key: nth($specialName, $i);
   .#{$PF}-light-border-#{$key} {
-    border-color: nth($lightSpecial, $i);
+    border-color: nth($borderLightSpecial, $i);
   }
 }
