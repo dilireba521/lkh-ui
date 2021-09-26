@@ -1,4 +1,6 @@
 var path = require("path");
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const webpack = require('webpack');
 
 module.exports = {
   pages: {
@@ -16,7 +18,6 @@ module.exports = {
   },
   //扩展 webpack 配置，使packages加入编译
   chainWebpack: config => {
-
     config.module.rule('vue')
       .test(/\.vue$/)
       .use('vue-loader')
@@ -27,6 +28,17 @@ module.exports = {
         }
       })
       .end()
+
+
+    // config.module.rule('css')
+    //   .test(/\.css$/)
+    //   .use('style-loader')
+    //   .loader("style-loader")
+    //   .end()
+    //   .use('css-loader')
+    //   .loader('css-loader')
+    //   .end()
+
 
     config.module.rule('md')
       .test(/\.md$/)
@@ -56,6 +68,18 @@ module.exports = {
   //     preProcessor: 'sass',
   //     patterns: [path.resolve(__dirname, './packages/style/index.scss')]
   //   }
+  // },
+  // css: {
+  //   loaderOptions: {
+  //     css: {
+  //       test: /\.css$/i,
+  //       use: [
+  //         MiniCssExtractPlugin.loader,
+  //         'css-loader'
+  //       ]
+  //     },
+  //   },
+  //   extract: true,
+  //   modules: false
   // }
-
 }

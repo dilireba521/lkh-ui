@@ -74,6 +74,7 @@ export default {
       return sw;
     },
     moveBar() {
+      // console.log("moveBar");
       this.totalHeight = this.view.scrollHeight;
       this.ownHeight = this.els.clientHeight;
       this.scrollRatio = this.ownHeight / this.totalHeight;
@@ -101,6 +102,7 @@ export default {
       window[event]("resize", this.moveBar);
       this.view[event]("scroll", this.moveBar);
       this.view[event]("mouseenter", this.moveBar);
+      this.view[event]("mousewheel", this.moveBar);
     },
     dragDealer() {
       let lastPageY,
