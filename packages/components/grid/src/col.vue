@@ -7,16 +7,19 @@
 export default {
   name: "lkCol",
   props: {
-    span: [Number, String],
+    span: {
+      type: Number,
+      default: 24,
+    },
     offset: [Number, String],
     push: [Number, String],
     pull: [Number, String],
     className: String,
-    xs: [Number, String],
-    sm: [Number, String],
-    md: [Number, String],
-    lg: [Number, String],
-    xl: [Number, String],
+    xs: [Number, Object],
+    sm: [Number, Object],
+    md: [Number, Object],
+    lg: [Number, Object],
+    xl: [Number, Object],
   },
   computed: {
     gutter() {
@@ -59,8 +62,8 @@ export default {
       let style = {};
       if (this.gutter != 0) {
         style = {
-          marginLeft: this.gutter / 2 + "px",
-          marginRight: this.gutter / 2 + "px",
+          paddingLeft: this.gutter / 2 + "px",
+          paddingRight: this.gutter / 2 + "px",
         };
       }
       return style;
