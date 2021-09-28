@@ -478,7 +478,7 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
 }
-.#{$PF}-justify-left {
+.#{$PF}-justify-start {
   -webkit-box-pack: start;
   box-pack: start;
   -webkit-justify-content: flex-start;
@@ -490,21 +490,21 @@ body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-.#{$PF}-justify-right {
+.#{$PF}-justify-end {
   -webkit-box-pack: end;
   box-pack: end;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
-.#{$PF}-justify-between {
+.#{$PF}-justify-space-between {
   -webkit-box-pack: justify;
   justify-content: space-between;
 }
-.#{$PF}-justify-around {
+.#{$PF}-justify-space-around {
   -webkit-box-pack: distribute;
   justify-content: space-around;
 }
-.#{$PF}-align-left {
+.#{$PF}-align-start {
   -webkit-box-align: start;
   box-align: start;
   -webkit-align-items: flex-start;
@@ -516,7 +516,7 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-.#{$PF}-align-right {
+.#{$PF}-align-end {
   -webkit-box-align: end;
   box-align: end;
   -webkit-align-items: flex-end;

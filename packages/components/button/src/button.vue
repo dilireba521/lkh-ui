@@ -7,14 +7,13 @@
     :autofocus="autofocus"
     :style="{ borderRadius: round }"
   >
-    <lkIcon v-if="icon" :name="icon" />
+    <i v-if="icon" :class="icon" />
     <span>
       <slot></slot>
     </span>
   </button>
 </template>
 <script>
-import lkIcon from "../../icon/src/icon";
 export default {
   name: "lkButton",
   props: {
@@ -56,7 +55,6 @@ export default {
       return ["lk-btn", `lk-${this.size}`, that.plain ? plainObjs : fullObjs];
     },
   },
-  components: { lkIcon },
   methods: {
     handleClick(e) {
       this.$emit("click", e);

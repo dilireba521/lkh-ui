@@ -47,18 +47,18 @@ export default {
     },
   },
   watch: {
-    // gutter(val) {
-    //   this.updateGutter(val);
-    // },
+    gutter(val) {
+      this.updateGutter(val);
+    },
   },
   methods: {
-    // updateGutter(val) {
-    //   this.$children.forEach((child) => {
-    //     if (child.$options.name == "lkCol" && val != 0) {
-    //       child.gutter = val;
-    //     }
-    //   });
-    // },
+    updateGutter(val) {
+      this.$children.forEach((child) => {
+        if (child.$options.name == "lkCol" && val != 0) {
+          child.gutter = val;
+        }
+      });
+    },
   },
 };
 </script>

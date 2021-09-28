@@ -7,9 +7,14 @@
 .#{$PF}-row {
   position: relative;
   box-sizing: border-box;
+  display: flex;
   height: auto;
-  zoom: 1;
-  &:after {
+  &::before,
+  &::after {
+    display: table;
+    content: "";
+  }
+  &::after {
     clear: both;
   }
 }
