@@ -1,0 +1,28 @@
+.#{$PF}-collapse {
+  border-top: 1px solid $ce;
+  border-bottom: 1px solid $ce;
+  &-item {
+    & + & {
+      border-top: 1px solid $ce;
+    }
+    &_wrap {
+      will-change: height;
+    }
+    &_content {
+      padding-bottom: 20px;
+    }
+  }
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 48px;
+    cursor: pointer;
+    .is-arrow {
+      transition: transform 0.3s;
+      &.is-active {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
