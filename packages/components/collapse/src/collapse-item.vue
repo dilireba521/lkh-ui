@@ -1,24 +1,29 @@
 <template>
-  <div class="lk-collapse-item" @click="change">
-    <slot name="title">{{ title }}</slot>
-    <collapse-transition>
-      <div v-show="isShow">
-        <slot></slot>
+  <div class="lk-collapse-item">
+    <div class="lk-collapse_header" @click="change">
+      <slot name="title">{{ title }}</slot>
+      <i
+        class="is-arrow lk-icon-arrow-right"
+        :class="{ 'is-active': isShow }"
+      ></i>
+    </div>
+    <lk-collapse-transition>
+      <div class="lk-collapse-item_wrap" v-show="isShow">
+        <div class="lk-collapse-item_content">
+          <slot></slot>
+        </div>
       </div>
-    </collapse-transition>
+    </lk-collapse-transition>
   </div>
 </template>
-<style scoped>
-.lk-collapse-item {
-  /* background: red; */
-}
-</style>
 <script>
-import collapseTransition from "./collapse-transition";
-
+import lkCollapseTransition from "./collapse-transition";
+import emitter from "../../../utils/mixins/emitter";
 export default {
   name: "collapseItem",
-  components: { collapseTransition },
+  mixins: [emitter],
+  inject: ["collapse"],
+  components: { lkCollapseTransition },
   props: {
     disabled: Boolean,
     title: String,
@@ -29,15 +34,15 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      isShow: false,
-    };
+  computed: {
+    isShow() {
+      return this.collapse.activeNames.indexOf(this.name) > -1;
+    },
   },
   methods: {
     change() {
-      this.isShow = !this.isShow;
-      this.$emit("change", this.isShow);
+      if (this.disabled) return;
+      this.dispatch("lkCollapse", "item-click", this);
     },
   },
 };
