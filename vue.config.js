@@ -1,6 +1,4 @@
 var path = require("path");
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const webpack = require('webpack');
 
 module.exports = {
   pages: {
@@ -29,17 +27,6 @@ module.exports = {
       })
       .end()
 
-
-    // config.module.rule('css')
-    //   .test(/\.css$/)
-    //   .use('style-loader')
-    //   .loader("style-loader")
-    //   .end()
-    //   .use('css-loader')
-    //   .loader('css-loader')
-    //   .end()
-
-
     config.module.rule('md')
       .test(/\.md$/)
       .use('vue-loader')
@@ -63,23 +50,13 @@ module.exports = {
       .loader('babel-loader');
 
   },
-  // pluginOptions: {
-  //   'style-resources-loader': {
-  //     preProcessor: 'sass',
-  //     patterns: [path.resolve(__dirname, './packages/style/index.scss')]
-  //   }
-  // },
-  // css: {
-  //   loaderOptions: {
-  //     css: {
-  //       test: /\.css$/i,
-  //       use: [
-  //         MiniCssExtractPlugin.loader,
-  //         'css-loader'
-  //       ]
-  //     },
-  //   },
-  //   extract: true,
-  //   modules: false
-  // }
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'sass',
+      patterns: [path.resolve(__dirname, './packages/style/index.scss')]
+    }
+  },
+  css: {
+    extract: true,
+  }
 }

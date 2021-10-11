@@ -3,13 +3,13 @@
   color: $c3;
   font-size: 14px;
 
-  &.dashed {
+  &.is-dashed {
     &::before {
-      border-bottom: 1px $c9 dashed !important;
+      border-bottom: 1px $cd dashed !important;
     }
 
     &::after {
-      border-bottom: 1px $c9 dashed !important;
+      border-bottom: 1px $cd dashed !important;
     }
   }
 
@@ -33,7 +33,7 @@
     &::after {
       content: "";
       height: 1px;
-      border-bottom: 1px $ce solid;
+      border-bottom: 1px $cd solid;
     }
   }
 
@@ -82,14 +82,14 @@
       content: "";
       width: 1px;
       height: 12px;
-      border-right: 1px $c6 solid;
+      border-right: 1px $cd solid;
       display: block;
       z-index: 0;
     }
 
-    &.dashed {
+    &.is-dashed {
       &::before {
-        border-left: 1px $c9 dashed !important;
+        border-left: 1px $cd dashed !important;
       }
     }
   }

@@ -1,9 +1,9 @@
 .#{$PF}-collapse {
-  border-top: 1px solid $ce;
-  border-bottom: 1px solid $ce;
+  border-top: 1px solid $cd;
+  border-bottom: 1px solid $cd;
   &-item {
     & + & {
-      border-top: 1px solid $ce;
+      border-top: 1px solid $cd;
     }
     &_wrap {
       will-change: height;

@@ -1,6 +1,6 @@
 {
-  "name": "lkh-ui",
-  "version": "1.0.0",
+  "name": "lkui-vue",
+  "version": "1.0.1",
   "private": false,
   "main": "lib/lkh.umd.min.js",
   "scripts": {
