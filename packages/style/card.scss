@@ -1,0 +1,21 @@
+.#{$PF}-card {
+  overflow: hidden;
+  border: 1px solid $cd;
+  border-radius: 4px;
+  &.is-always {
+    box-shadow: 0 0 8px $ce;
+  }
+  &.is-hover {
+    &:hover {
+      box-shadow: 0 0 8px $ce;
+    }
+  }
+  &_header {
+    font-size: 16px;
+    padding: 10px;
+    border-bottom: 1px solid $cd;
+  }
+  &_body {
+    padding: 20px;
+  }
+}

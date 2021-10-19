@@ -1,0 +1,38 @@
+.#{$PF}-dropdown {
+  display: inline-block;
+  &-menu {
+    position: fixed;
+    overflow: hidden;
+    border: 1px solid $cd;
+    border-radius: 4px;
+    box-shadow: 0 0 8px $ce;
+    background: white;
+  }
+  &-item_box {
+    min-width: 100px;
+    display: block;
+    padding: 4px 0;
+    font-size: 14px;
+    overflow: auto;
+  }
+  &-item {
+    padding: 0 8px;
+    height: 36px;
+    line-height: 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+      background-color: #f3f3f3;
+    }
+    &.is-disabled {
+      color: $cb;
+      cursor: not-allowed;
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+  }
+}

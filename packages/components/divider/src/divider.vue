@@ -18,7 +18,7 @@ export default {
     },
     contentPosition: {
       type: String,
-      default: "center",
+      default: "left",
       validator(val) {
         return ["left", "center", "right"].indexOf(val) !== -1;
       },
@@ -31,7 +31,7 @@ export default {
         "lk-divider",
         `lk-divider-${this.type}`,
         `lk-divider-${this.contentPosition}`,
-        { "is-dashed": this.dashed, nodivider: !!this.$slots.default },
+        { "is-dashed": this.dashed, nodivider: !this.$slots.default },
       ];
     },
   },

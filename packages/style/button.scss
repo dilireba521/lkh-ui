@@ -69,10 +69,20 @@
     border-left-color: hsla(0, 0%, 100%, 0.5);
     border-right-color: hsla(0, 0%, 100%, 0.5);
   }
+  .#{$PF}-btn.#{$PF}-border-default {
+    border-left-color: $default;
+    border-right-color: $default;
+  }
   .#{$PF}-btn[class*="#{$PF}-border-"]:first-child {
     border-left-color: transparent;
   }
+  .#{$PF}-btn.#{$PF}-border-default:first-child {
+    border-left-color: $default;
+  }
   .#{$PF}-btn[class*="#{$PF}-border-"]:last-child {
     border-right-color: transparent;
+  }
+  .#{$PF}-btn.#{$PF}-border-default:last-child {
+    border-right-color: $default;
   }
 }

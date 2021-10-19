@@ -1,0 +1,209 @@
+.#{$PF}-tabs {
+  position: relative;
+  overflow: hidden;
+  &_header {
+    .#{$PF}-tabs-navwrap {
+      li {
+        position: relative;
+        display: inline-block;
+        line-height: 40px;
+        padding: 0 15px;
+        -webkit-transition: color 0.3s;
+        transition: color 0.3s;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+
+        &::after {
+          content: "";
+          position: absolute;
+          z-index: 2;
+          transition: all 0.3s;
+        }
+        &:hover {
+          color: $primary;
+        }
+        &.is-active {
+          color: $primary;
+          &::after {
+            background-color: $primary;
+          }
+        }
+        &.is-disabled,
+        &.is-disabled:hover {
+          color: #c3c3c3;
+          cursor: not-allowed;
+        }
+      }
+    }
+    &.is-card {
+      .#{$PF}-tabs-navwrap {
+        li {
+          &.is-active::after {
+            background-color: $white;
+          }
+        }
+      }
+    }
+  }
+  &_body {
+    overflow: hidden;
+  }
+  &.is-top {
+    .#{$PF}-tabs_header {
+      margin-bottom: 15px;
+      .#{$PF}-tabs-navwrap {
+        border-bottom: 2px $default solid;
+        li {
+          &::after {
+            width: 100%;
+            height: 2px;
+            left: 0;
+            bottom: -2px;
+            transform: scaleX(0);
+          }
+          &.is-active {
+            &::after {
+              transform: scaleX(1);
+            }
+          }
+        }
+      }
+      &.is-card {
+        .#{$PF}-tabs-navwrap {
+          border-bottom: 1px $default solid;
+          li {
+            border-left: 1px solid $default;
+            border-top: 1px solid $default;
+
+            &:first-child {
+              border-top-left-radius: 4px;
+            }
+            &:last-child {
+              border-right: 1px solid $default;
+              border-top-right-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.is-bottom {
+    .#{$PF}-tabs_header {
+      margin-top: 15px;
+      .#{$PF}-tabs-navwrap {
+        border-top: 2px $default solid;
+        li {
+          &::after {
+            width: 100%;
+            height: 2px;
+            left: 0;
+            top: -2px;
+            transform: scaleX(0);
+          }
+          &.is-active {
+            &::after {
+              transform: scaleX(1);
+            }
+          }
+        }
+      }
+      &.is-card {
+        .#{$PF}-tabs-navwrap {
+          border-top: 1px $default solid;
+          li {
+            border-left: 1px solid $default;
+            border-bottom: 1px solid $default;
+            &:first-child {
+              border-bottom-left-radius: 4px;
+            }
+            &:last-child {
+              border-right: 1px solid $default;
+              border-bottom-right-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.is-left {
+    .#{$PF}-tabs_header {
+      float: left;
+      margin-right: 15px;
+      .#{$PF}-tabs-navwrap {
+        border-right: 2px $default solid;
+        li {
+          display: block;
+          &::after {
+            width: 2px;
+            height: 100%;
+            right: -2px;
+            top: 0;
+            transform: scaleY(0);
+          }
+          &.is-active {
+            &::after {
+              transform: scaleY(1);
+            }
+          }
+        }
+      }
+      &.is-card {
+        .#{$PF}-tabs-navwrap {
+          border-right: 1px $default solid;
+          li {
+            border-left: 1px solid $default;
+            border-top: 1px solid $default;
+            &:first-child {
+              border-top-left-radius: 4px;
+            }
+            &:last-child {
+              border-bottom: 1px solid $default;
+              border-bottom-left-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.is-right {
+    .#{$PF}-tabs_header {
+      float: right;
+      margin-left: 15px;
+      .#{$PF}-tabs-navwrap {
+        border-left: 2px $default solid;
+        li {
+          display: block;
+          &::after {
+            width: 2px;
+            height: 100%;
+            left: -2px;
+            top: 0;
+            transform: scaleY(0);
+          }
+          &.is-active {
+            &::after {
+              transform: scaleY(1);
+            }
+          }
+        }
+      }
+      &.is-card {
+        .#{$PF}-tabs-navwrap {
+          border-left: 1px $default solid;
+          li {
+            border-right: 1px solid $default;
+            border-top: 1px solid $default;
+            &:first-child {
+              border-top-right-radius: 4px;
+            }
+            &:last-child {
+              border-bottom: 1px solid $default;
+              border-bottom-right-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
