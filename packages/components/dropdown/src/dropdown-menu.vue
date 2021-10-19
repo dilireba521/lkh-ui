@@ -1,6 +1,6 @@
 <template>
   <transition name="lk-zoom-in-top">
-    <div :style="style" v-if="showPopper" class="lk-dropdown-menu">
+    <div :style="menuStyle" v-if="showPopper" class="lk-dropdown-menu">
       <dl class="lk-dropdown-item_box">
         <slot></slot>
       </dl>
@@ -17,8 +17,13 @@ export default {
   props: {
     width: { type: String, default: "auto" },
   },
-  data() {
-    return {};
+  computed: {
+    menuStyle() {
+      return Object.assign({}, this.style, {
+        width: this.width,
+        "z-index": this.dropdown.$props.zIndex,
+      });
+    },
   },
   mounted() {
     this.parentPopper = this.dropdown.$el;
@@ -28,6 +33,5 @@ export default {
       this.showPopper = val;
     });
   },
-  methods: {},
 };
 </script>

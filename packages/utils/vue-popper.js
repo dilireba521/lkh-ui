@@ -13,9 +13,8 @@ export default {
     showPopper(val) {
       if (val) {
         this.updatePopper()
-        this.scrollPopper = this.getScrollParent(this.parentPopper);
+        this.scrollPopper = this.scrollPopper || this.getScrollParent(this.parentPopper);
         this.scrollPopper.addEventListener("scroll", this.updatePopper);
-        Object.assign(this.style, { "z-index": 9999 });
       } else {
         this.destroyPopper()
         this.scrollPopper.removeEventListener("scroll", this.updatePopper);
@@ -27,7 +26,9 @@ export default {
   },
   methods: {
     updatePopper() {
-      this.style = setElementSize(this.parentPopper, this.$el);
+      this.$nextTick(() => {
+        this.style = setElementSize(this.parentPopper, this.$el);
+      })
     },
     destroyPopper() {
       this.style = {};

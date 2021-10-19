@@ -18,7 +18,7 @@ const setElementSize = function (locationElem, elem) {
   }
   //文档超低边界
   if (topSize + elemHeight >= windowArea("clientHeight")) {
-    topSize = rect.top - elemHeight;
+    topSize = rect.top - elemHeight - diff;
   }
   return {
     left: leftSize + "px",

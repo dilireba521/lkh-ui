@@ -15,6 +15,7 @@
 import Emitter from "../../../utils/mixins/emitter";
 export default {
   name: "lkDropdown",
+  componentName: "lkDropdown",
   mixins: [Emitter],
   provide() {
     return {
@@ -31,7 +32,11 @@ export default {
     },
     zIndex: {
       type: Number,
-      default: 999,
+      default: 1,
+    },
+    hideOnClick: {
+      type: Boolean,
+      default: true,
     },
   },
   watch: {
@@ -43,9 +48,17 @@ export default {
     return {
       timeout: null,
       visible: false,
+      triggerElem: null,
     };
   },
+  mounted() {
+    this.$on("menu-item-click", this.handleMenuItemClick);
+  },
   methods: {
+    handleMenuItemClick(command, instance) {
+      this.triggerElem = instance;
+      this.$emit("command", command, instance);
+    },
     handleMouseenter() {
       if (this.trigger == "hover") {
         if (this.timeout) clearTimeout(this.timeout);
@@ -63,33 +76,30 @@ export default {
       }
     },
     handleClick() {
+      if (this.triggerElem && this.triggerElem.disabled) return;
       if (this.trigger == "click") {
-        this.isShowMenu(true);
+        this.isShowMenu(!this.visible);
+      } else if (this.triggerElem) {
+        this.isShowMenu(!this.visible);
       }
     },
     isShowMenu(isShow) {
+      if (!this.hideOnClick && this.triggerElem) {
+        this.triggerElem = null;
+        return;
+      }
       this.visible = isShow;
+      this.triggerElem = null;
       if (isShow) {
-        document.addEventListener(
-          "click",
-          (e) => {
-            this.closePanel(e, this.$el);
-          },
-          false
-        );
+        document.addEventListener("click", this.closePanel, false);
       } else {
-        document.removeEventListener(
-          "click",
-          (e) => {
-            this.closePanel(e, this.$el);
-          },
-          false
-        );
+        document.removeEventListener("click", this.closePanel, false);
       }
     },
     //点击空白区域隐藏面板
-    closePanel(e, elem) {
+    closePanel(e) {
       e.stopPropagation();
+      let elem = this.$el;
       if (elem && !elem.contains(e.target)) {
         this.isShowMenu(false);
       }

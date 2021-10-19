@@ -24,6 +24,7 @@
     overflow: hidden;
     cursor: pointer;
     &:hover {
+      color: $primary;
       background-color: #f3f3f3;
     }
     &.is-disabled {
