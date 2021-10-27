@@ -1,18 +1,20 @@
 <template>
-  <label class="lk-radio">
+  <label :class="radioClass">
     <input
       v-model="currentVal"
       :value="label"
       :disabled="disabled"
       :change="change"
       :name="name"
+      class="lk-radio-input"
       type="radio"
     />
-    <span class="lk-radio_wrap">
-      <span class="lk-radio_inner"></span>
+    <span class="lk-radio-wrap" v-if="!isButton">
+      <span class="lk-radio-wrap_inner"></span>
     </span>
-    <span class="lk-radio_label">
-      <slot>{{ label }}</slot>
+    <span class="lk-radio-label">
+      <slot></slot>
+      <template v-if="!$slots.default">{{ label }}</template>
     </span>
   </label>
 </template>
@@ -43,6 +45,19 @@ export default {
       this.$emit("input", val);
     },
   },
+  computed: {
+    radioClass() {
+      let _class = [
+        "lk-radio",
+        {
+          "is-active": this.currentVal && this.currentVal === this.label,
+          "is-disabled": this.disabled,
+          [`lk-${this.radioSize}`]: this.isButton || this.isBorder,
+        },
+      ];
+      return _class;
+    },
+  },
   data() {
     return {
       currentVal: this.value,
@@ -50,6 +65,7 @@ export default {
       parent: findComponentParent(this, "lkRadioGroup"),
       isButton: false,
       isBorder: false,
+      radioSize: this.size,
     };
   },
   created() {
@@ -62,9 +78,11 @@ export default {
   methods: {
     initData() {
       if (this.parent) {
-        this.size = this.parent.size;
-        if (this.parent.type == "button") this.isButton = true;
-        if (this.parent.type == "border") this.isBorder = true;
+        this.$nextTick(() => {
+          this.radioSize = this.parent.size;
+          if (this.parent.type == "button") this.isButton = true;
+          if (this.parent.type == "border") this.isBorder = true;
+        });
       }
     },
     change() {

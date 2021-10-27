@@ -11,8 +11,7 @@
   overflow: visible;
   cursor: pointer;
   font-weight: 500;
-  transition: border 0.2s linear, color 0.2s linear, width 0.2s linear,
-    background-color 0.2s linear;
+  transition: $--all-transition;
   border-width: 1px;
   border-style: solid;
   padding: 0 12px;
@@ -43,8 +42,7 @@
   vertical-align: middle;
   line-height: 1;
   border-collapse: separate;
-  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out;
+  transition: $--all-transition;
   &:after,
   &:before {
     display: table;

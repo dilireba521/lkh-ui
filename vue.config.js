@@ -50,12 +50,12 @@ module.exports = {
       .loader('babel-loader');
 
   },
-  pluginOptions: {
-    'style-resources-loader': {
-      preProcessor: 'sass',
-      patterns: [path.resolve(__dirname, './packages/style/index.scss')]
-    }
-  },
+  // pluginOptions: {
+  //   'style-resources-loader': {
+  //     preProcessor: 'sass',
+  //     patterns: [path.resolve(__dirname, './packages/style/index.scss')]
+  //   }
+  // },
   css: {
     extract: true,
   }
