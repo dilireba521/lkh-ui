@@ -29,7 +29,7 @@ $SW: 8px;
     z-index: 2;
     cursor: default;
     opacity: 0;
-    transition: opacity 0.3s linear;
+    transition: $--all-transition;
   }
   &:hover > .#{$PF}-scroll-bar,
   &:active > .#{$PF}-scroll-bar {

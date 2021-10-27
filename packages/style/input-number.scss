@@ -1,0 +1,93 @@
+.#{$PF}-input-number-wrap {
+  $name: #{$PF}-input-number;
+  display: flex;
+  line-height: $--input-height;
+  font-size: $--input-font-size;
+  .#{$PF}-input-number {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    & .#{$PF}-input_inner {
+      padding: 0 50px;
+      text-align: center;
+    }
+    &_prefix,
+    &_suffix {
+      position: absolute;
+      top: 1px;
+      bottom: 1px;
+      width: $--input-height;
+      text-align: center;
+      background-color: $background-default;
+      cursor: pointer;
+    }
+    &_prefix {
+      left: 1px;
+      border-right: 1px solid $default;
+      border-radius: 4px 0 0 4px;
+    }
+    &_suffix {
+      right: 1px;
+      border-left: 1px solid $default;
+      border-radius: 0 4px 4px 0;
+    }
+    &_button {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      &:hover {
+        color: $primary;
+      }
+      &.is-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        &:hover {
+          color: inherit;
+        }
+      }
+    }
+    &_button-wrap {
+      display: flex;
+      flex-direction: column;
+      .#{$PF}-input-number_button {
+        line-height: ($--input-height - 2)/2;
+        & + .#{$PF}-input-number_button {
+          border-top: 1px solid $default;
+        }
+      }
+    }
+    &.is-control-right {
+      & .#{$PF}-input_inner {
+        padding: 0 50px 0 15px;
+      }
+    }
+    &.is-disabled {
+      .#{$name}_prefix,
+      .#{$name}_suffix {
+        cursor: not-allowed;
+      }
+    }
+  }
+  &.is-small {
+    line-height: $--input-small-height;
+    font-size: $--input-mini-font-size;
+    .#{$name}_prefix,
+    .#{$name}_suffix {
+      width: $--input-small-height;
+    }
+    .#{$name}_button {
+      line-height: ($--input-small-height - 2)/2;
+    }
+  }
+  &.is-mini {
+    line-height: $--input-mini-height;
+    font-size: $--input-mini-font-size;
+    .#{$name}_prefix,
+    .#{$name}_suffix {
+      width: $--input-mini-height;
+    }
+    .#{$name}_button {
+      line-height: ($--input-mini-height - 2)/2;
+    }
+  }
+}

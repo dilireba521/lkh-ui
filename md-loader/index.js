@@ -29,7 +29,6 @@ module.exports = function (source) {
     const demoComponentName = `element-demo${id}`;
     output.push(`<template slot="source"><${demoComponentName} /></template>`);
     componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
-
     // 重新计算下一次的位置
     id++;
     start = commentEnd + endTagLen;

@@ -1,0 +1,68 @@
+.#{$PF}-checkbox {
+  $name: #{$PF}-checkbox;
+  cursor: pointer;
+  &-input {
+    position: absolute;
+    opacity: 0;
+  }
+  &-wrap {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid $default;
+    &_inner {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 3px;
+      height: 7px;
+      border: 1px solid transparent;
+      border-left: 0;
+      border-top: 0;
+      transform: rotate(45deg) scaleY(1) translate(-50%, -50%);
+      transform-origin: top;
+      transition: $--all-transition;
+    }
+  }
+  &-label {
+    padding-left: 10px;
+  }
+  & + & {
+    margin-left: 20px;
+  }
+  &.is-active {
+    .#{$name}-wrap {
+      border-color: $primary;
+      background-color: $primary;
+      &_inner {
+        border-color: $white;
+      }
+    }
+    &.is-disabled {
+      .#{$name}-wrap {
+        &_inner {
+          border-color: $c4;
+        }
+      }
+    }
+    .#{$name}-label {
+      color: $primary;
+    }
+  }
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: $default;
+    .#{$name}-wrap {
+      border-color: $default;
+      background-color: $background-default;
+    }
+    .#{$name}-label {
+      color: inherit;
+    }
+  }
+}

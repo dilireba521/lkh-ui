@@ -1,0 +1,133 @@
+.#{$PF}-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  &_inner,
+  .#{$PF}-textarea_inner {
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    transition: $--border-transition-base;
+    border: 1px solid $default;
+    border-radius: 4px;
+    &:hover {
+      border-color: $cb;
+    }
+    &:focus {
+      border-color: $primary;
+    }
+    &:disabled {
+      opacity: 0.6;
+      background-color: $background-default;
+      cursor: not-allowed;
+      &:hover {
+        border-color: $default;
+      }
+    }
+  }
+  &_inner {
+    height: $--input-height;
+    padding: 0 15px;
+  }
+  .#{$PF}-textarea_inner {
+    padding: 4px 15px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  &_suffix,
+  &_prefix {
+    & .is-icon {
+      width: 25px;
+      text-align: center;
+      color: $c9;
+    }
+  }
+  &_icon {
+    color: $cc;
+    cursor: pointer;
+    &:hover {
+      color: $c9;
+    }
+  }
+  &.is-suffix {
+    .#{$PF}-input_inner {
+      padding-right: 30px;
+    }
+    .#{$PF}-input_suffix {
+      position: absolute;
+      top: 0;
+      right: 5px;
+    }
+  }
+  &.is-prefix {
+    .#{$PF}-input_inner {
+      padding-left: 30px;
+    }
+    .#{$PF}-input_prefix {
+      position: absolute;
+      top: 0;
+      left: 5px;
+    }
+  }
+  &_count {
+    font-size: 12px;
+    color: $c9;
+    &.is-textarea {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+    }
+  }
+}
+.#{$PF}-input-wrap {
+  display: flex;
+  line-height: $--input-height;
+  font-size: $--input-font-size;
+  .#{$PF}-input-prepend,
+  .#{$PF}-input-append {
+    height: $--input-height;
+    padding: 0 8px;
+    border: 1px solid $default;
+    background-color: $background-default;
+  }
+  .#{$PF}-input-prepend {
+    border-radius: 4px 0 0 4px;
+    border-right: 0;
+  }
+  .#{$PF}-input-append {
+    border-radius: 0 4px 4px 0;
+    border-left: 0;
+  }
+  &.is-prepend {
+    .#{$PF}-input_inner {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  &.is-append {
+    .#{$PF}-input_inner {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  &.is-small {
+    line-height: $--input-small-height;
+    .#{$PF}-input-prepend,
+    .#{$PF}-input-append,
+    .#{$PF}-input_inner {
+      height: $--input-small-height;
+    }
+  }
+  &.is-mini {
+    line-height: $--input-mini-height;
+    font-size: $--input-mini-font-size;
+    .#{$PF}-input-prepend,
+    .#{$PF}-input-append,
+    .#{$PF}-input_inner {
+      height: $--input-mini-height;
+      .is-icon {
+        font-size: 12px;
+      }
+    }
+  }
+}
