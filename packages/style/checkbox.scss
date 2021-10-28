@@ -1,5 +1,6 @@
 .#{$PF}-checkbox {
   $name: #{$PF}-checkbox;
+  display: inline-block;
   cursor: pointer;
   &-input {
     position: absolute;

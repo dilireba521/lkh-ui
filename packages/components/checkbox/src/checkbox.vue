@@ -1,6 +1,17 @@
 <template>
   <label :class="checkboxClass">
     <input
+      v-if="parent"
+      type="checkbox"
+      :disabled="disabled"
+      v-model="model"
+      :value="label"
+      class="lk-checkbox-input"
+      :name="name"
+      :change="handleChange"
+    />
+    <input
+      v-else
       type="checkbox"
       :disabled="disabled"
       v-model="currentVal"
@@ -19,6 +30,7 @@
 </template>
 <script>
 import Emitter from "../../../utils/mixins/emitter";
+import { findComponentParent } from "../../../utils/findComponent";
 
 export default {
   name: "lkCheckbox",
@@ -36,30 +48,41 @@ export default {
       this.currentVal = val;
     },
     currentVal(val) {
-      if (this.isGroup) this.dispatch("lkCheckboxGroup", "input", val);
-
       this.$emit("input", val);
     },
   },
   computed: {
+    model: {
+      get() {
+        return this.parent.value;
+      },
+      set(val) {
+        this.dispatch("lkCheckboxGroup", "input", [val]);
+      },
+    },
+    parent() {
+      return findComponentParent(this, "lkCheckboxGroup");
+    },
     checkboxClass() {
       let _class = [
         "lk-checkbox",
-        { "is-active": this.currentVal, "is-disabled": this.disabled },
+        {
+          "is-active":
+            this.currentVal ||
+            (this.parent && this.model && this.model.indexOf(this.label) > -1),
+          "is-disabled": this.disabled,
+        },
       ];
       return _class;
     },
   },
   data() {
     return {
-      isGroup: false,
       currentVal: this.value,
     };
   },
   methods: {
     handleChange() {
-      console.log(3);
-
       this.$emit("change", this.currentVal);
     },
   },
