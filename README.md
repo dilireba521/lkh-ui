@@ -1,6 +1,6 @@
 # lkh-ui
 
-Front end style framework based on Vue scaffold version 3.0
+Front end style framework based on Vue scaffold version 2.0
 
 # install
 

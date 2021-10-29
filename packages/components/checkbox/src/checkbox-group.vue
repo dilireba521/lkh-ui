@@ -3,7 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script>
+<script > 
 import Emitter from "../../../utils/mixins/emitter";
 
 export default {

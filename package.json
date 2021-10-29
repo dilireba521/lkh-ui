@@ -10,8 +10,10 @@
     "build-lib": "vue-cli-service build --target lib --name lkh --dest lib packages/index.js"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.2.4",
     "core-js": "^2.6.5",
-    "vue": "^2.6.14"
+    "ts-loader": "8.2.0",
+    "typescript": "^4.4.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.4",
@@ -33,6 +35,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "transliteration": "^2.2.0",
+    "vue": "^2.6.14",
     "vue-loader": "^15.7.0",
     "vue-router": "^3.5.2",
     "vue-style-loader": "^4.1.3",

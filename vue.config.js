@@ -11,7 +11,7 @@ module.exports = {
 
   configureWebpack: (config) => {
     //自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
-    config.resolve.extensions = ['.js', '.json', '.vue', '.css', '.scss'];
+    config.resolve.extensions = ['.js', '.ts', '.tsx', '.json', '.vue', '.css', '.scss'];
 
   },
   //扩展 webpack 配置，使packages加入编译
@@ -48,6 +48,22 @@ module.exports = {
       .end()
       .use('babel')
       .loader('babel-loader');
+
+    config.module
+      .rule('typescript')
+      .test(/\.tsx?$/)
+      .use('babel-loader')
+      .loader('babel-loader')
+      .end()
+      .use("ts-loader")
+      .loader('ts-loader')
+      .options({
+        transpileOnly: true,
+        appendTsSuffixTo: [/\.vue$/],
+        happyPackMode: false,
+      })
+      .end();
+
 
   },
   // pluginOptions: {

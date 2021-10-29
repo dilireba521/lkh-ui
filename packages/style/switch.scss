@@ -1,0 +1,46 @@
+.#{$PF}-switch {
+  $name: #{$PF}-switch;
+  $--switch-height: 20px;
+  $--switch-dot-width: 16px;
+  display: inline-block;
+  position: relative;
+  height: $--switch-height;
+  line-height: $--switch-height;
+  cursor: pointer;
+  &-input {
+    position: absolute;
+    opacity: 0;
+  }
+  &-inner {
+    position: relative;
+    display: inline-block;
+    height: $--switch-height;
+    border-radius: $--switch-height/2;
+    background-color: $default;
+    transition: $--all-transition;
+    &::after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: $--switch-dot-width;
+      height: $--switch-dot-width;
+      border-radius: $--switch-dot-width/2;
+      background-color: $white;
+      transition: $--all-transition;
+    }
+  }
+  &.is-active {
+    .#{$name}-inner {
+      background-color: $primary;
+      &::after {
+        left: 100%;
+        margin-left: -($--switch-dot-width + 2px);
+      }
+    }
+  }
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
