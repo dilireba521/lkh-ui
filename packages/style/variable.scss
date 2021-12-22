@@ -20,7 +20,7 @@ $ce: #eeeeee;
 $cf: #ffffff;
 
 $default: #dcdfe6;
-$primary: #409eff;
+$primary: #42b983;
 $success: #67c23a;
 $info: #2db7f5;
 $warning: #ff9900;
@@ -29,7 +29,7 @@ $dark: #909399;
 $white: #ffffff;
 
 $light-default: #fefefe;
-$light-primary: #ecf5ff;
+$light-primary: #eaf7f2;
 $light-success: #f0f9eb;
 $light-info: #f0faff;
 $light-warning: #fdf6ec;
@@ -38,7 +38,7 @@ $light-dark: #f4f4f5;
 $light-white: #ffffff;
 
 $border-default: #c6e2ff;
-$border-primary: #b3d8ff;
+$border-primary: #aef3d8;
 $border-success: #c2e7b0;
 $border-info: #b3d8ff;
 $border-warning: #f5dab1;
@@ -84,6 +84,11 @@ $--breakpoints: (
     min-width: $--xl,
   ),
 );
+
+/* base
+---------------------------*/
+$--box-shadow-base: 0 0 8px $ce;
+$--border-radius-base: 6px;
 /* Transition
 -------------------------- */
 $--all-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
@@ -98,3 +103,36 @@ $--input-mini-font-size: 12px;
 $--input-height: 40px;
 $--input-small-height: 36px;
 $--input-mini-height: 32px;
+
+/* slider
+-------------------------*/
+$--slider-background: $default;
+$--slider-background-disabled: $cb;
+
+/* tag
+-------------------------*/
+$--tag-height: 32px;
+$--tag-font-size: 12px;
+$--tag-middle-height: 28px;
+$--tag-small-height: 24px;
+
+/** message
+-----------------------------------*/
+$--message-min-width: 380px !default;
+$--message-shadow: $--box-shadow-base;
+$--message-padding: 15px 15px 15px 20px !default;
+///background
+$--message-info-background-color: $light-info !default;
+$--message-success-background-color: $light-success !default;
+$--message-warning-background-color: $light-warning !default;
+$--message-danger-background-color: $light-danger !default;
+///border
+$--message-info-border-color: $border-info;
+$--message-success-border-color: $border-success;
+$--message-warning-border-color: $border-warning;
+$--message-danger-border-color: $border-danger;
+///color
+$--message-info-font-color: $info;
+$--message-success-font-color: $success;
+$--message-warning-font-color: $warning;
+$--message-danger-font-color: $danger;

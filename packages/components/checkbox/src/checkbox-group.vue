@@ -3,7 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script > 
+<script >
 import Emitter from "../../../utils/mixins/emitter";
 
 export default {
@@ -12,7 +12,14 @@ export default {
   mixins: [Emitter],
   props: {
     value: {},
+    disabled: Boolean,
   },
-  watch: {},
+  watch: {
+    value(val) {
+      //TODO 数据变化考虑是否做change回调
+      // eslint-disable-next-line no-console
+      console.log(val);
+    },
+  },
 };
 </script>

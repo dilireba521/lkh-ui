@@ -4,8 +4,9 @@
       "module": "commonjs", 
       "strict": true, 
       "allowJs": true,
-      "strictNullChecks": true, 
+      "strictNullChecks": false, 
       "esModuleInterop": true, 
       "experimentalDecorators": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

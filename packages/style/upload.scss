@@ -1,0 +1,119 @@
+.#{$PF}-upload {
+  $name: #{$PF}-upload;
+  $pictureLength: 150px;
+  &_inner {
+    display: inline-block;
+    &.is-picture {
+      width: $pictureLength;
+      height: $pictureLength;
+      line-height: $pictureLength;
+      border: 1px dashed $default;
+      border-radius: 4px;
+      margin-left: 2px;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: $light-default;
+      cursor: pointer;
+      &:hover {
+        border: 2px dashed $primary;
+      }
+    }
+    &.is-drag {
+      width: 100%;
+      height: $pictureLength;
+      border: 1px dashed $default;
+      border-radius: 4px;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: $light-default;
+      box-sizing: border-box;
+      &:hover {
+        border: 2px dashed $primary;
+      }
+    }
+  }
+  &_tip {
+    margin-top: 5px;
+  }
+  &-list {
+    &_item {
+      position: relative;
+      line-height: 1.8;
+      padding: 0 40px 0 10px;
+      border-radius: 4px;
+      cursor: default;
+      &:first-child {
+        margin-top: 10px;
+      }
+      &:hover {
+        color: $primary;
+        background-color: $background-default;
+        .#{$name}-list_item_close {
+          display: block;
+        }
+      }
+      &_name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        padding-left: 5px;
+        box-sizing: border-box;
+      }
+      &_close {
+        position: absolute;
+        right: 10px;
+        top: 6px;
+        display: none;
+      }
+    }
+    &.is-picture {
+      display: inline-block;
+      vertical-align: top;
+      .#{$PF}-upload-list_item {
+        display: inline-block;
+        overflow: hidden;
+        padding: 0 2px;
+        width: $pictureLength;
+        height: $pictureLength;
+        box-sizing: border-box;
+        &:first-child {
+          margin-top: 0;
+        }
+        &_img {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          &_mask {
+            content: "";
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+          &_close {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: $white;
+          }
+          &:hover {
+            .#{$PF}-upload-list_item_img_close,
+            .#{$PF}-upload-list_item_img_mask {
+              display: block;
+            }
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            border: 1px solid $default;
+          }
+        }
+      }
+    }
+  }
+}

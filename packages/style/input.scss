@@ -1,6 +1,6 @@
 .#{$PF}-input {
   position: relative;
-  display: inline-block;
+  display: flex;
   width: 100%;
   &_inner,
   .#{$PF}-textarea_inner {
@@ -28,6 +28,7 @@
   &_inner {
     height: $--input-height;
     padding: 0 15px;
+    cursor: pointer;
   }
   .#{$PF}-textarea_inner {
     padding: 4px 15px;
@@ -49,7 +50,7 @@
       color: $c9;
     }
   }
-  &.is-suffix {
+  &.is-suffix-icon {
     .#{$PF}-input_inner {
       padding-right: 30px;
     }
@@ -59,7 +60,7 @@
       right: 5px;
     }
   }
-  &.is-prefix {
+  &.is-prefix-icon {
     .#{$PF}-input_inner {
       padding-left: 30px;
     }
@@ -85,6 +86,7 @@
   font-size: $--input-font-size;
   .#{$PF}-input-prepend,
   .#{$PF}-input-append {
+    display: inline-block;
     height: $--input-height;
     padding: 0 8px;
     border: 1px solid $default;

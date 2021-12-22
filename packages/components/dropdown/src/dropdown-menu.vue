@@ -25,12 +25,20 @@ export default {
       });
     },
   },
+  data() {
+    return {
+      currentPlacement: "bottom-start",
+    };
+  },
   mounted() {
     this.parentPopper = this.dropdown.$el;
   },
   created() {
     this.$on("visible", (val) => {
       this.showPopper = val;
+      this.$nextTick(() => {
+        this.currentPopper = this.$el;
+      });
     });
   },
 };

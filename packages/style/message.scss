@@ -1,0 +1,53 @@
+@include b(message) {
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  min-width: $--message-min-width;
+  padding: $--message-padding;
+  border-radius: $--border-radius-base;
+  box-shadow: $--message-shadow;
+  box-sizing: border-box;
+  border: 1px solid $--message-info-border-color;
+  transition: opacity 0.3s, transform 0.4s, top 0.4s;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  @include when(center) {
+    justify-content: center;
+  }
+
+  @include m(info) {
+    color: $--message-info-font-color;
+    background-color: $--message-info-background-color;
+  }
+  @include m(success) {
+    border-color: $--message-success-border-color;
+    color: $--message-success-font-color;
+    background-color: $--message-success-background-color;
+  }
+  @include m(warning) {
+    border-color: $--message-warning-border-color;
+    color: $--message-warning-font-color;
+    background-color: $--message-warning-background-color;
+  }
+  @include m(error) {
+    border-color: $--message-danger-border-color;
+    color: $--message-danger-font-color;
+    background-color: $--message-danger-background-color;
+  }
+
+  @include e(close) {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: $cb;
+    cursor: pointer;
+    &:hover {
+      color: $c9;
+    }
+  }
+}

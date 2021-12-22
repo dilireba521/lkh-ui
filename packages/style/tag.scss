@@ -1,0 +1,83 @@
+.#{$PF}-tag {
+  $name: #{$PF}-tag;
+  display: inline-block;
+  height: $--tag-height;
+  line-height: $--tag-height - 2px;
+  padding: 0 10px;
+  border-radius: 4px;
+  color: $primary;
+  border: 1px solid $border-primary;
+  font-size: $--tag-font-size;
+  background-color: $light-primary;
+  &-icon {
+    position: relative;
+    right: -5px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    &:hover {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+  @for $i from 2 through 6 {
+    $key: nth($specialName, $i);
+    &.is-#{$key} {
+      color: nth($special, $i);
+      border-color: nth($borderLightSpecial, $i);
+      background-color: nth($lightSpecial, $i);
+      .#{$name}-icon {
+        &:hover {
+          color: $white;
+          background-color: nth($special, $i);
+        }
+      }
+    }
+  }
+  &.is-theme-dark {
+    border-color: $primary;
+    color: $white;
+    background-color: $primary;
+    .#{$name}-icon {
+      &:hover {
+        color: $white;
+        background-color: $border-primary;
+      }
+    }
+    @for $i from 2 through 6 {
+      $key: nth($specialName, $i);
+      &.is-#{$key} {
+        border-color: nth($special, $i);
+        background-color: nth($special, $i);
+        .#{$name}-icon {
+          &:hover {
+            background-color: nth($borderLightSpecial, $i);
+          }
+        }
+      }
+    }
+  }
+  &.is-theme-plain {
+    background-color: transparent;
+  }
+
+  &.is-middle {
+    height: $--tag-middle-height;
+    line-height: $--tag-middle-height - 2px;
+    .#{ $name}-icon {
+      transform: scale(0.9);
+    }
+  }
+  &.is-small {
+    height: $--tag-small-height;
+    line-height: $--tag-small-height - 2px;
+    .#{ $name}-icon {
+      transform: scale(0.8);
+    }
+  }
+}

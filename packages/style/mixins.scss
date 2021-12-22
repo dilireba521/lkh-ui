@@ -10,3 +10,65 @@
     @warn "Undefeined points: `#{$map}`";
   }
 }
+
+/** BEM
+--------------------------------*/
+@mixin b($block) {
+  $B: $PF + "-" + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+@mixin e($element) {
+  $element-separator: "_";
+  $selector: &;
+  $currentSelector: "";
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector +
+      "." +
+      $B +
+      $element-separator +
+      $unit +
+      ","};
+  }
+  @if hitAllSpecialNestRule($selector) {
+    @at-root {
+      #{$selector} {
+        #{$currentSelector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}
+@mixin when($state) {
+  $state-prefix: "is-";
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $modifier-separator: "-";
+  $currentSelector: "";
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector +
+      & +
+      $modifier-separator +
+      $unit +
+      ","};
+  }
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}

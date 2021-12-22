@@ -1,0 +1,47 @@
+.#{$PF}-tooltip {
+  $name: #{$PF}-tooltip;
+  display: inline-block;
+  &-content {
+    position: fixed;
+    padding: 6px;
+    min-width: 20px;
+    border-radius: 4px;
+    background: $c3;
+    color: $ce;
+    -webkit-user-select: none;
+    white-space: nowrap;
+    &_arrow {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
+      background: $c3;
+    }
+    &[x-placement*="top"],
+    &[x-placement*="bottom"] {
+      .#{$name}-content_arrow {
+        left: 50%;
+        margin-left: -4px;
+      }
+    }
+    &[x-placement*="top"] &_arrow {
+      bottom: -4px;
+    }
+    &[x-placement*="bottom"] &_arrow {
+      top: -4px;
+    }
+    &[x-placement*="right"],
+    &[x-placement*="left"] {
+      .#{$name}-content_arrow {
+        top: 50%;
+        margin-top: -4px;
+      }
+    }
+    &[x-placement*="right"] &_arrow {
+      left: -4px;
+    }
+    &[x-placement*="left"] &_arrow {
+      right: -4px;
+    }
+  }
+}

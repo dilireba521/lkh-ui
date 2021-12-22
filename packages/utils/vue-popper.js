@@ -1,37 +1,71 @@
 import { setElementSize } from "./dom";
 
 export default {
+  props: {
+    placement: {
+      type: String,
+      default: "bottom",
+    },
+  },
   data() {
     return {
       showPopper: false,
-      style: {},
-      parentPopper: null,
-      scrollPopper: null
-    }
+      style: {}, //浮层样式
+      parentPopper: null, //浮层定位模块
+      currentPopper: null, //浮层模块
+      scrollPopper: null, //浮层滚动区域模块
+      popperData: null,
+
+    };
   },
   watch: {
     showPopper(val) {
       if (val) {
-        this.updatePopper()
-        this.scrollPopper = this.scrollPopper || this.getScrollParent(this.parentPopper);
+        this.updatePopper();
+        this.scrollPopper =
+          this.scrollPopper || this.getScrollParent(this.parentPopper);
         this.scrollPopper.addEventListener("scroll", this.updatePopper);
+        window.addEventListener("resize", this.updatePopper);
+        this.parentPopper.addEventListener("mousemove", this.updatePopper)
+        this.parentPopper.addEventListener("mouseup", this.onDragEnd)
       } else {
-        this.destroyPopper()
+        this.destroyPopper();
         this.scrollPopper.removeEventListener("scroll", this.updatePopper);
+        window.removeEventListener("resize", this.updatePopper);
       }
-    },
+    }
   },
-  mounted() {
-
-  },
+  mounted() { },
   methods: {
+    onDragEnd() {
+      this.parentPopper.removeEventListener("mousemove", this.updatePopper)
+      this.parentPopper.removeEventListener("mouseup", this.onDragEnd)
+    },
     updatePopper() {
+      this.currentPlacement = this.currentPlacement || this.placement;
+      if (
+        !/^(top|bottom|left|right)(-start|-end)?$/g.test(this.currentPlacement)
+      ) {
+        return;
+      }
       this.$nextTick(() => {
-        this.style = setElementSize(this.parentPopper, this.$el);
-      })
+        if (!this.parentPopper || !this.currentPopper || !this.currentPlacement) return
+        this.popperData = setElementSize(
+          this.parentPopper,
+          this.currentPopper,
+          this.currentPlacement
+        );
+        this.currentPlacement = this.popperData.placement;
+        this.style = {
+          left: this.popperData.popperOffsets.left + "px",
+          top: this.popperData.popperOffsets.top + "px",
+        };
+      });
     },
     destroyPopper() {
-      this.style = {};
+      setTimeout(() => {
+        this.style = {};
+      }, 200)
     },
     //获取滚动父级
     getScrollParent(elem) {
@@ -70,5 +104,5 @@ export default {
       var css = window.getComputedStyle(elem, null);
       return css[prop];
     },
-  }
-}
+  },
+};

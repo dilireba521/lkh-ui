@@ -72,7 +72,7 @@ module.exports = {
   //     patterns: [path.resolve(__dirname, './packages/style/index.scss')]
   //   }
   // },
-  css: {
-    extract: true,
-  }
+  // css: {
+  //   extract: true,
+  // }
 }

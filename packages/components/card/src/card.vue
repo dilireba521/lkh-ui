@@ -1,7 +1,7 @@
 <template>
   <div class="lk-card" :class="cardClass">
     <div class="lk-card_header" v-if="$slots.header || header">
-      <slot name="header">{{ header }}</slot>
+      <slot name="header">{{ $slots.header || header }}</slot>
     </div>
     <div class="lk-card_body" :style="bodyStyle">
       <slot></slot>

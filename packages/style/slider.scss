@@ -1,0 +1,55 @@
+.#{$PF}-slider {
+  $name: #{$PF}-slider;
+  margin-right: 20px;
+  &_runway {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    margin: 16px 0;
+    border-radius: 3px;
+    background-color: $--slider-background;
+    cursor: pointer;
+    .#{$name}-process {
+      position: absolute;
+      left: 0;
+      height: 100%;
+      border-radius: 3px;
+      background-color: $primary;
+      transition: 0.1s;
+    }
+  }
+  &.is-disabled {
+    .#{$name}_runway {
+      cursor: not-allowed;
+      .#{$name}-process {
+        background-color: $--slider-background-disabled;
+      }
+    }
+    .#{$name}-bar {
+      &_btn {
+        border-color: $--slider-background-disabled;
+        &:hover {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+  &-bar {
+    position: absolute;
+    top: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    transition: 0.1s;
+    &_btn {
+      width: 20px;
+      height: 20px;
+      border: 2px solid $primary;
+      border-radius: 50%;
+      transition: 0.1s;
+      background-color: $white;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}

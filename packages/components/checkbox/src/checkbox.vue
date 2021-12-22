@@ -3,7 +3,7 @@
     <input
       v-if="parent"
       type="checkbox"
-      :disabled="disabled"
+      :disabled="disabled || (parent && parent.disabled)"
       v-model="model"
       :value="label"
       class="lk-checkbox-input"
@@ -70,7 +70,7 @@ export default {
           "is-active":
             this.currentVal ||
             (this.parent && this.model && this.model.indexOf(this.label) > -1),
-          "is-disabled": this.disabled,
+          "is-disabled": this.disabled || (this.parent && this.parent.disabled),
         },
       ];
       return _class;
