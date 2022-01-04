@@ -7,8 +7,16 @@
     transform: translateY(-50%);
     width: 100%;
     z-index: 1;
+    // display: flex;
     @include b(tag) {
       margin: 2px 0px 2px 6px;
+    }
+    @include m(input) {
+      height: 28px;
+      border: none;
+      margin-left: 15px;
+      box-sizing: border-box;
+      background-color: transparent;
     }
   }
   @include b(select-input) {
@@ -22,10 +30,17 @@
     overflow: hidden;
     border: 1px solid $cd;
     border-radius: 4px;
+    max-height: 200px;
     box-shadow: 0 0 8px $ce;
     background: $white;
-    @include when(multiple){
-      
+    @include when(multiple) {
+      @include b(select-option) {
+        @include when(selected) {
+          &::after {
+            display: block;
+          }
+        }
+      }
     }
   }
   @include m(option) {

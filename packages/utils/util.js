@@ -24,7 +24,7 @@ export function rafThrottle(fn) {
 //事件防抖
 export const debounce = function (func, delay = 300) {
   let timer = null;
-  return () => {
+  return function () {
     const ctx = this;
     if (timer) {
       clearTimeout(timer)

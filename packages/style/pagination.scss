@@ -1,0 +1,46 @@
+@include b(pagination) {
+  $btn-height: 28px;
+  $btn-min-width: 35.5px;
+  $btn-font-size: 14px;
+  @include e(pager) {
+    display: inline-block;
+    & > li {
+      padding: 0 4px;
+      background: #fff;
+      vertical-align: top;
+      display: inline-block;
+      font-size: $btn-font-size;
+      min-width: $btn-min-width;
+      height: $btn-height;
+      line-height: $btn-height;
+      cursor: pointer;
+      box-sizing: border-box;
+      text-align: center;
+      margin: 0;
+      &:hover {
+        color: $primary;
+      }
+      @include when(active) {
+        color: $primary;
+      }
+    }
+  }
+  @include e((prev, next)) {
+    display: inline-block;
+    font-size: $btn-font-size;
+    min-width: $btn-min-width;
+    height: $btn-height;
+    line-height: $btn-height;
+    vertical-align: top;
+    box-sizing: border-box;
+    background-color: transparent;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+    }
+    @include when(disabled) {
+      color: #999;
+      cursor: no-drop;
+    }
+  }
+}

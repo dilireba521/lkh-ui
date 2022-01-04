@@ -74,7 +74,6 @@ export default {
       return sw;
     },
     moveBar() {
-      // console.log("moveBar");
       this.totalHeight = this.view.scrollHeight;
       this.ownHeight = this.els.clientHeight;
       this.scrollRatio = this.ownHeight / this.totalHeight;

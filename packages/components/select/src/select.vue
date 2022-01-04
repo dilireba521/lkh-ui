@@ -26,10 +26,21 @@
           >{{ item.currentLabel }}</lk-tag
         >
       </transition-group>
+      <input
+        ref="input"
+        type="text"
+        class="lk-select_tags-input"
+        v-show="filterable"
+        v-model="query"
+        @input="debouncedQueryChange"
+        :style="{
+          'flex-grow': '1',
+          'max-width': inputWidth - 42 + 'px',
+        }"
+      />
     </div>
     <lk-input
       class="lk-select-input"
-      :class="{ 'is-clearable': clearable }"
       v-model="selectedLabel"
       ref="reference"
       :readonly="readonly"
@@ -50,14 +61,14 @@
     <transition name="lk-zoom-in-top">
       <lk-select-menu
         :style="{ zIndex: zIndex }"
-        :class="[multiple && 'is-multiple']"
+        :class="[visible && multiple && 'is-multiple']"
         ref="popper"
         v-show="visible"
       >
-        <lk-scroll v-show="options.length > 0">
+        <lk-scroll :style="scrollStyle" v-show="options.length > 0">
           <slot></slot>
         </lk-scroll>
-        <p class="lk-select-empty" v-show="isEmpty">无数据</p>
+        <p class="lk-select-empty" v-show="isEmpty">{{ emptyText }}</p>
       </lk-select-menu>
     </transition>
   </div>
@@ -89,13 +100,24 @@ export default {
       default: 999,
     },
     filterable: Boolean,
-    disabled: Boolean, //todo 多选未添加
-    clearable: Boolean, //todo 多选未添加
     filterMethod: Function,
+    remote: Boolean,
+    remoteMethod: Function,
+    disabled: Boolean,
+    clearable: Boolean, //todo 多选未添加
     multiple: Boolean,
     collapseTags: Boolean,
+    loading: Boolean,
+    loadingText: String,
   },
   computed: {
+    emptyText() {
+      if (this.loading) {
+        return this.loadingText || "加载中...";
+      } else {
+        return "无数据";
+      }
+    },
     isEmpty() {
       return this.options.length == 0 || this.filteredOptionsCount == 0;
     },
@@ -104,15 +126,22 @@ export default {
       this.inputHover &&
         this.value &&
         this.clearable &&
+        !this.disabled &&
         (icon = "lk-icon-circle-close lk-select-input_clear");
       return icon;
     },
     readonly() {
-      return !this.filterable;
+      return !this.filterable || this.multiple;
+    },
+    scrollStyle() {
+      let _style = {};
+      (this.optionsCount > 5 && (_style["height"] = "200px")) ||
+        (_style["height"] = "inherit");
+      return _style;
     },
   },
   watch: {
-    value(val) {
+    value() {
       this.setSelected();
     },
     visible(val) {
@@ -142,7 +171,7 @@ export default {
       visible: false, //是否显示浮层
       inputHover: false, //鼠标在input内
       currentPlaceholder: this.placeholder,
-      cachedPlaceHolder: "",
+      cachedPlaceHolder: this.placeholder,
       query: "",
       menuVisibleOnFocus: false, //浮层是否处于聚焦状态，用于多选时判断浮层状态
     };
@@ -151,6 +180,9 @@ export default {
     this.$on("handleOptionClick", this.handleOptionSelect);
     this.debouncedOnInputChange = debounce(() => {
       this.onInputChange();
+    });
+    this.debouncedQueryChange = debounce((e) => {
+      this.handleQueryChange(e.target.value);
     });
   },
   mounted() {
@@ -169,6 +201,7 @@ export default {
         if (this.filterable) {
           this.query = this.selectedLabel;
           this.currentPlaceholder = this.selectedLabel;
+          this.remote && (this.currentPlaceholder = this.cachedPlaceHolder);
         }
         return;
       }
@@ -229,23 +262,30 @@ export default {
         }
         this.menuVisibleOnFocus = true;
         this.$emit("input", value);
+        this.query = "";
+        this.handleQueryChange(this.query);
       } else {
         this.visible = false;
         this.$emit("input", option.value);
       }
     },
     toggleMenu() {
-      if (!this.multiple) return;
+      if (!this.multiple || this.disabled) return;
       if (this.menuVisibleOnFocus) {
         this.menuVisibleOnFocus = false;
       } else {
         this.visible = !this.visible;
       }
+      if (!this.visible) {
+        this.$refs.input.blur();
+      } else {
+        this.$refs.input.focus();
+      }
     },
     handleInputClear() {
-      this.$emit("input", "");
+      const _val = (this.multiple && []) || "";
+      this.$emit("input", _val);
       this.$emit("clear");
-      // this.visible = false;
     },
     handleFocus(e) {
       this.visible = true;
@@ -253,6 +293,7 @@ export default {
       this.menuVisibleOnFocus = true;
       if (this.filterable) {
         this.selectedLabel = "";
+        !this.multiple && this.$emit("input", "");
       }
     },
     handleBlur(e) {
@@ -283,10 +324,6 @@ export default {
           (tagsHeight > this.initialInputHeight
             ? tagsHeight + 6
             : this.initialInputHeight) + "px";
-
-        console.log("tagsHeight", tagsHeight);
-        // console.log("this.initialInputHeight", this.initialInputHeight);
-        // console.log("input.style.height", input.style.height);
         this.broadcast("lkSelectDropdown", "updatePopper");
       });
     },
@@ -297,8 +334,14 @@ export default {
       }
     },
     handleQueryChange(val) {
-      this.filteredOptionsCount = this.optionsCount;
-      this.broadcast("lkOption", "queryChange", this.query);
+      if (this.remote && typeof this.remoteMethod == "function") {
+        this.remoteMethod(val);
+      } else if (this.filter && typeof this.filterMethod === "function") {
+        this.filterMethod(val);
+      } else {
+        this.filteredOptionsCount = this.optionsCount;
+        this.broadcast("lkOption", "queryChange", this.query);
+      }
     },
     //点击空白区域隐藏面板
     closePanel(e) {
@@ -315,6 +358,13 @@ export default {
         value.splice(index, 1);
         this.$emit("input", value);
         this.$emit("remove-tag", tag.value);
+      }
+    },
+    onOptionDestroy(index) {
+      if (index > -1) {
+        this.optionsCount--;
+        this.filteredOptionsCount--;
+        this.options.splice(index, 1);
       }
     },
   },
