@@ -4,11 +4,18 @@
       class="lk-pagination_prev"
       @click="jump(false)"
       :disabled="internalCurrentPage <= 1"
-      :class="{ 'is-disabled': internalCurrentPage <= 1 }"
+      :class="{
+        'is-border': border,
+        'is-disabled': internalCurrentPage <= 1 || disabled,
+      }"
     >
       <i class="lk-icon-arrow-left"></i>
     </button>
-    <ul @click="onPagerClick" class="lk-pagination_pager">
+    <ul
+      @click="onPagerClick"
+      :class="{ 'is-border': border, 'is-disabled': disabled }"
+      class="lk-pagination_pager"
+    >
       <li
         v-if="pageCount > 1"
         :class="{ 'is-active': internalCurrentPage === 1 }"
@@ -44,7 +51,10 @@
       @click="jump(true)"
       class="lk-pagination_next"
       :disabled="internalCurrentPage >= pageCount"
-      :class="{ 'is-disabled': internalCurrentPage >= pageCount }"
+      :class="{
+        'is-border': border,
+        'is-disabled': internalCurrentPage >= pageCount || disabled,
+      }"
     >
       <i class="lk-icon-arrow-right"></i>
     </button>
@@ -189,6 +199,7 @@ export default {
         this.internalCurrentPage = newPage;
         this.$emit("change", newPage);
       }
+      console.log(newPage);
     },
     onMouseenter(direction) {
       if (this.disabled) return;
@@ -196,7 +207,9 @@ export default {
         (this.quickNextHover = true);
     },
     jump(state) {
+      if (this.disabled) return;
       state ? this.internalCurrentPage++ : this.internalCurrentPage--;
+      console.log(this.internalCurrentPage);
       this.$emit("change", this.internalCurrentPage);
     },
   },
