@@ -16,11 +16,17 @@
     "typescript": "^4.4.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.4",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "@vue/component-compiler-utils": "^3.2.2",
     "babel-eslint": "^10.0.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "github-markdown-css": "^4.0.0",
@@ -66,5 +72,12 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "Front end style framework based on Vue scaffold version 2.0",
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "lkh <215551728@qq.com>"
 }

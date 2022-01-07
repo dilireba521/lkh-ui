@@ -1,5 +1,5 @@
 @include b(pagination) {
-  $btn-height: 28px;
+  $btn-height: 40px;
   $btn-min-width: 35.5px;
   $btn-font-size: 14px;
   @include e(pager) {
@@ -44,6 +44,9 @@
         &:hover {
           border-color: $primary;
         }
+        @include when(active) {
+          border-color: $primary;
+        }
       }
       @include when(disabled){
         & > li {
@@ -76,6 +79,7 @@
         border-color: $primary;
       }
       @include when(disabled){
+        background-color: $background-default;
         &:hover {
           border-color: $default;
         }
@@ -84,6 +88,37 @@
     @include when(disabled) {
       color: #999;
       cursor: no-drop;
+    }
+  }
+  @include e(total){
+    display: inline-block;
+    height: $btn-height;
+    line-height: $btn-height;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+  @include e(sizes){
+    display: inline-block;
+    height: $btn-height;
+    line-height: $btn-height;
+    margin:0 10px;
+    vertical-align: top;
+    .#{$PF}-select{
+      width: 120px;
+      text-align: center;
+      .#{$PF}-input_inner{
+        text-align: center;
+      }
+    }
+  }
+  @include e(jump){
+    display: inline-block;
+    line-height: $btn-height;
+    vertical-align: top;
+    .#{$PF}-input_inner{
+      width: 60px;
+      text-align: center;
+
     }
   }
 }

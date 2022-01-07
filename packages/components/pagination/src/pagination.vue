@@ -1,5 +1,6 @@
 <template>
   <div v-if="pageCount" class="lk-pagination">
+    <div v-if="showTotal" class="lk-pagination_total">共 {{ total }} 条</div>
     <button
       class="lk-pagination_prev"
       @click="jump(false)"
@@ -58,11 +59,37 @@
     >
       <i class="lk-icon-arrow-right"></i>
     </button>
+    <div v-if="showSelect" class="lk-pagination_sizes">
+      <lk-select :disabled="disabled" v-model="internalPageSize">
+        <lk-option
+          v-for="item in pageSizes"
+          :key="item"
+          :label="item + '条/页'"
+          :value="item"
+        ></lk-option>
+      </lk-select>
+    </div>
+    <div v-if="jumper" class="lk-pagination_jump">
+      <lk-input
+        :disabled="disabled"
+        @change="inputChange"
+        v-model="userInput"
+        type="number"
+        width="140px"
+      >
+        <template slot="prepend">前往</template>
+        <template slot="append">页</template>
+      </lk-input>
+    </div>
   </div>
+  <div v-else></div>
 </template>
 <script>
+import { LkSelect, LkOption } from "../../select";
+import { LkInput } from "../../input";
 export default {
   name: "lkPagination",
+  components: { LkSelect, LkOption, LkInput },
   props: {
     //当前选中页
     currentPage: {
@@ -73,14 +100,24 @@ export default {
       type: Number,
       require: true,
     },
+    //每页展示数据
     pageSize: {
       type: Number,
       default: 10,
     },
+    //页码支持配置每页展示数据
+    pageSizes: {
+      type: Array,
+      default() {
+        return [10, 20, 30];
+      },
+    },
     jumper: Boolean,
     border: Boolean,
-    showSize: Boolean,
     disabled: Boolean,
+    showSelect: Boolean,
+    //显示数据总量
+    showTotal: Boolean,
     //显示页码按钮数量
     pagerCount: {
       type: Number,
@@ -103,6 +140,17 @@ export default {
         this.internalPageSize = isNaN(val) ? 10 : val;
       },
     },
+    internalPageSize(nVal, oVal) {
+      if (nVal !== oVal && this.pageCount < this.internalCurrentPage) {
+        this.internalCurrentPage = this.pageCount;
+      }
+    },
+    internalCurrentPage: {
+      immediate: true,
+      handler(val) {
+        this.userInput = val;
+      },
+    },
   },
   computed: {
     morePrevClass() {
@@ -122,8 +170,8 @@ export default {
     },
     //中间按钮展示数据
     pagers() {
-      let pageCount = this.pageCount;
-      let currentPage = this.internalCurrentPage;
+      let pageCount = Number(this.pageCount);
+      let currentPage = Number(this.internalCurrentPage);
 
       let pagerCount = this.pagerCount;
       let helfPagerCount = (pagerCount - 1) / 2;
@@ -174,10 +222,10 @@ export default {
       quickPrevHover: false,
       quickNextHover: false,
       internalPageSize: 0,
-      internalCurrentPage: 0,
+      internalCurrentPage: 1,
+      userInput: 0,
     };
   },
-  mounted() {},
   methods: {
     onPagerClick(e) {
       if (this.disabled) return;
@@ -199,7 +247,6 @@ export default {
         this.internalCurrentPage = newPage;
         this.$emit("change", newPage);
       }
-      console.log(newPage);
     },
     onMouseenter(direction) {
       if (this.disabled) return;
@@ -209,8 +256,17 @@ export default {
     jump(state) {
       if (this.disabled) return;
       state ? this.internalCurrentPage++ : this.internalCurrentPage--;
-      console.log(this.internalCurrentPage);
       this.$emit("change", this.internalCurrentPage);
+    },
+    inputChange(val) {
+      if (val) {
+        this.userInput =
+          val < 1 ? 1 : val > this.pageCount ? this.pageCount : val;
+        this.internalCurrentPage = Number(this.userInput);
+        this.$emit("change", this.internalCurrentPage);
+      } else {
+        this.userInput = this.internalCurrentPage;
+      }
     },
   },
 };

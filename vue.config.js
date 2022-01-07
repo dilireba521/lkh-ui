@@ -16,6 +16,13 @@ module.exports = {
   },
   //扩展 webpack 配置，使packages加入编译
   chainWebpack: config => {
+
+    config.module.rule('jsx')
+      .test(/\.(jsx?|babel|es6)$/)
+      .use('babel')
+      .loader('babel-loader')
+      .end();
+
     config.module.rule('vue')
       .test(/\.vue$/)
       .use('vue-loader')
@@ -48,6 +55,7 @@ module.exports = {
       .end()
       .use('babel')
       .loader('babel-loader');
+
 
     config.module
       .rule('typescript')
