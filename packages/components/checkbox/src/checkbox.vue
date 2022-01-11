@@ -42,6 +42,7 @@ export default {
     disabled: Boolean,
     name: String,
     // size:String 暂时不考虑支持
+    indeterminate: Boolean,
   },
   watch: {
     value(val) {
@@ -71,6 +72,8 @@ export default {
             this.currentVal ||
             (this.parent && this.model && this.model.indexOf(this.label) > -1),
           "is-disabled": this.disabled || (this.parent && this.parent.disabled),
+          "is-indeterminate":
+            !this.disabled && !this.currentVal && this.indeterminate,
         },
       ];
       return _class;

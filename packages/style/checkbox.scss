@@ -35,6 +35,17 @@
   & + & {
     margin-left: 20px;
   }
+  &.is-indeterminate {
+    .#{$name}-wrap {
+      border-color: $primary;
+      background-color: $primary;
+      &_inner {
+        transform: rotate(90deg) scaleY(1) translate(-50%, -25%);
+        border-bottom:0;
+        border-color: $white;
+      }
+    }
+  }
   &.is-active {
     .#{$name}-wrap {
       border-color: $primary;

@@ -1,2 +1,3 @@
 import LkTable from "./src/table.vue"
-export { LkTable }
+import LkTableColumn from "./src/table-column.vue"
+export { LkTable, LkTableColumn }
