@@ -10,9 +10,12 @@
           colspan="1"
           v-for="(item, idx) in bodyColumns"
           :key="idx"
-          :align="item.align"
+          :align="
+            item.align || (item.type && item.type == 'selection' && 'center')
+          "
+          :class="tdClass(item)"
         >
-          <TableTd :column="item" :row="row" :index="idx" />
+          <TableTd :column="item" :row="row" :index="index" />
         </td>
       </tr>
     </tbody>
@@ -40,7 +43,12 @@ const TableTd = {
         })(column);
       column.prop = fields[fields.length - 1];
     }
-    const rescols = column.renders.call(this, h, { row, $index, title });
+    const rescols = column.renders.call(this, h, {
+      row,
+      $index,
+      column,
+      title,
+    });
     return <div class="cell">{rescols}</div>;
   },
 };
@@ -52,17 +60,39 @@ export default {
       type: Array,
       default: () => [],
     },
+    fixed: {
+      type: String,
+      validator: (val) => ["left", "right"].indexOf(val) !== -1,
+    },
   },
   computed: {
     columnsWidth() {
       return this.$parent.columnsWidth;
     },
-    bodyColumn() {
+    bodyColumns() {
       return this.$parent.bodyColumns;
     },
   },
+  mounted() {
+    // console.log(this.bodyColumns);
+  },
   data() {
     return {};
+  },
+  methods: {
+    tdClass(data) {
+      let style = {};
+      if (this.fixed) {
+        if (this.fixed == "left") {
+          this.$parent.leftData.indexOf(data) === -1 &&
+            (style["is-hidden"] = true);
+        } else {
+          this.$parent.rightData.indexOf(data) === -1 &&
+            (style["is-hidden"] = true);
+        }
+      }
+      return style;
+    },
   },
 };
 </script>

@@ -8,7 +8,7 @@
       :value="label"
       class="lk-checkbox-input"
       :name="name"
-      :change="handleChange"
+      @change="handleChange"
     />
     <input
       v-else
@@ -17,12 +17,12 @@
       v-model="currentVal"
       class="lk-checkbox-input"
       :name="name"
-      :change="handleChange"
+      @change="handleChange"
     />
     <span class="lk-checkbox-wrap">
       <span class="lk-checkbox-wrap_inner"></span>
     </span>
-    <span class="lk-checkbox-label">
+    <span v-if="$slots.default || label" class="lk-checkbox-label">
       <slot></slot>
       <template v-if="!$slots.default">{{ label }}</template>
     </span>

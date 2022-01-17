@@ -19,12 +19,12 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 3px;
+      width: 4px;
       height: 7px;
       border: 1px solid transparent;
       border-left: 0;
       border-top: 0;
-      transform: rotate(45deg) scaleY(1) translate(-50%, -50%);
+      transform: rotate(45deg) scaleY(1) translate(-50%, -40%);
       transform-origin: top;
       transition: $--all-transition;
     }

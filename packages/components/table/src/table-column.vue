@@ -3,10 +3,12 @@
 import { LkCheckbox } from "../../checkbox";
 export default {
   name: "lkTableColumn",
+  componentName: "lkTableColumn",
   render(h) {
     return h("div", this.$slots.default);
   },
   props: {
+    //当前列的类型selection多选框 index索引 extend可展开按钮
     type: {
       type: String,
       validator: (val) => ["selection", "index", "extend"].indexOf(val) > -1,
@@ -24,6 +26,10 @@ export default {
     label: String,
     prop: String,
     width: String,
+    minWidth: {
+      type: String,
+      default: "80",
+    },
     // 鼠标滑过单元格时是否显示title提示语
     title: {
       type: Boolean,
@@ -71,7 +77,7 @@ export default {
   },
   methods: {
     handleColChange(row) {
-      this.$parent.handleChange(row);
+      this.$parent.handleChangeCheck(row);
     },
   },
 };

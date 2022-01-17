@@ -1,3 +1,104 @@
 @include b(table){
-  @include e(header){}
+  $th-height:24px;
+  @include e(box){
+    position: relative;
+    max-width: 100%;
+    border: 1px solid $default;
+    // border-right-color:transparent;
+    box-sizing: border-box;
+    background-color: $--table-bg;
+    &.is-scroll {
+      border-right-color:$default;
+    }
+  }
+  @include e(header){
+    position: relative;
+    overflow: hidden;
+    background-color: $background-default;
+  }
+  @include e(body){
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+
+  @include m(header){
+    width: 100%;
+    user-select: none;
+    background-color: $background-default;
+    th{
+      padding: 10px 0;
+      border-bottom: 1px solid $default;
+      border-right: 1px solid $default;
+      text-align: left;
+      &.is-hidden {
+        visibility: hidden;
+      }
+      .cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        padding: 0 10px;
+      }
+    }
+  }
+  @include m(body){
+    width: 100%;
+    box-sizing: border-box;
+    tr{
+      //TODO 考虑增加点击事件时再新增背景hover效果
+      // &:hover{
+      //   background-color:$--table-tr-hover;
+      // }
+      &:last-child{
+        td{
+          border-bottom:0;
+        }
+      }
+    }
+    td {
+      padding: 10px 0;
+      border-bottom: 1px solid $default;
+      border-right: 1px solid $default;
+      &.is-hidden {
+        visibility: hidden;
+      }
+      .cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        padding: 0 10px;
+      }
+    }
+  }
+  @include e(fixed){
+    position: absolute;
+    top: 0;
+    background-color: $--table-bg;
+    overflow: hidden;
+    &.is-left {
+      left: 0;
+      box-shadow: 4px 4px 8px rgba(0, 0, 0,.16 );
+     
+    }
+    &.is-right {
+      right: -1px;
+      box-shadow: -4px 4px 8px rgba(0, 0, 0,.16 );
+     
+    }
+    @include m(wrap){
+      position: absolute;
+      &.is-right {
+        right: 0;
+      }
+    }
+   
+    @include m(header){
+      overflow: hidden;
+    }
+    @include m(body){
+      overflow: hidden;
+    }
+  }
 }

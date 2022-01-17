@@ -13,12 +13,7 @@ const findComponentParent = function (context, componentName) {
 }
 const findComponentChildren = function (context, componentName) {
   let children = context.$children,
-    validateChildren = children.map((child) => {
-      if (child.$options.componentName == componentName) {
-        return child
-      }
-    });
-
+    validateChildren = children.filter((child) => child.$options.componentName == componentName);
   return validateChildren
 
 }
