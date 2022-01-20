@@ -1,0 +1,25 @@
+@include b(count-roll){
+  $--count-roll-width:36px;
+  $--count-roll-height:60px;
+  $--count-roll-font-size:36px;
+  @include e(wrap){
+    overflow: hidden;
+    display: inline-block;
+    height: $--count-roll-height;
+    line-height: $--count-roll-height;
+    font-size: $--count-roll-font-size;
+    margin: 0 4px;
+    text-align: center;
+    box-sizing: border-box; 
+    &.is-number {
+      width: $--count-roll-width;
+      border: 1px solid $primary;
+      border-radius: 4px;
+    }
+  }
+  @include e(item){
+    span {
+      display: block;
+    }
+  }
+}

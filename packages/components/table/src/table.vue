@@ -22,7 +22,10 @@
       <template v-if="leftData.length > 0">
         <div
           class="lk-table_fixed is-left"
-          :style="{ width: leftWidth + 'px', bottom: barWidth + 'px' }"
+          :style="{
+            width: leftWidth + 'px',
+            bottom: barWidth + 'px',
+          }"
           v-show="isShowLeft"
         >
           <div class="lk-table_fixed-wrap is-left">
@@ -36,7 +39,11 @@
                 :style="{ width: totalWidth }"
               ></table-header>
             </div>
-            <div class="lk-table_fixed-body">
+            <div
+              ref="bodyLeftWrap"
+              class="lk-table_fixed-body"
+              :style="[tableBodyStyle, { paddingBottom: barWidth + 'px' }]"
+            >
               <table-body
                 fixed="left"
                 :data="tableData"
@@ -60,7 +67,10 @@
                 :style="{ width: totalWidth }"
               ></table-header>
             </div>
-            <div class="lk-table_fixed-body">
+            <div
+              class="lk-table_fixed-body"
+              :style="[tableBodyStyle, { paddingBottom: barWidth + 'px' }]"
+            >
               <table-body
                 fixed="right"
                 :data="tableData"
@@ -95,6 +105,11 @@ export default {
     },
     size: String,
     maxHeight: [String, Number],
+    //列是否自适应宽度
+    fit: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     tableHeaderStyle() {
@@ -107,6 +122,9 @@ export default {
       if (this.height) {
         // style["paddingRight"] = this.barWidth + "px";
         style["height"] = this.height;
+      }
+      if (this.maxHeight) {
+        style["maxHeight"] = this.maxHeight;
       }
 
       return style;
@@ -143,19 +161,26 @@ export default {
   },
   methods: {
     handleScrollBody(e) {
-      let headerWrap = this.$refs.headerWrap;
-      let scrollLeft = e.target.scrollLeft;
-      headerWrap.scrollLeft = scrollLeft;
+      if (this.leftData.length > 0 || this.rightData.length > 0) {
+        const headerWrap = this.$refs.headerWrap;
+        const bodyLeftWrap = this.$refs.bodyLeftWrap;
+        const scrollLeft = e.target.scrollLeft;
+        const scrollTop = e.target.scrollTop;
+        headerWrap.scrollLeft = scrollLeft;
+        if (this.isShowLeft) {
+          bodyLeftWrap.scrollTop = scrollTop;
+        }
 
-      this.isShowLeft = scrollLeft >= 5;
-      this.isShowRight =
-        scrollLeft < e.target.scrollWidth - e.target.offsetWidth - 5;
-      // console.log(scrollLeft);
+        this.isShowLeft = scrollLeft >= 5;
+        this.isShowRight =
+          scrollLeft < e.target.scrollWidth - e.target.offsetWidth - 5;
+      }
     },
     handleSelectAll() {
       const status = this.selectChecked == "checked";
       this.checkRows = status ? [] : [...this.tableData];
       this.selectChecked = status ? "unSelect" : "checked";
+      this.$emit("selectAll", this.checkRows);
     },
     handleChangeCheck(item) {
       const index = this.checkRows.indexOf(item);
@@ -164,6 +189,7 @@ export default {
       } else {
         this.checkRows.splice(index, 1);
       }
+      this.$emit("select", item);
       this.changeSelectStatus();
     },
     changeSelectStatus() {
@@ -306,7 +332,7 @@ export default {
       });
 
       //理论宽度比盒子实际宽度小，重新计算没有对列宽度进行定义的项
-      if (rawWidth < boxWidth) {
+      if (rawWidth < boxWidth && this.fit) {
         let surplusWidth = boxWidth - widthsVal, //除长度定义的总宽度
           minPer = {},
           total = 0;
@@ -344,7 +370,7 @@ export default {
         let bodyWrap = this.$refs.bodyWrap;
         let currCaclWidth = totalWidth;
 
-        if (totalWidth <= bodyWrap.offsetWidth) {
+        if (totalWidth <= bodyWrap.offsetWidth && this.fit) {
           currCaclWidth = bodyWrap.scrollWidth; //出去边框长度，直接取内容长度
         }
         this.totalWidth = currCaclWidth + "px";
