@@ -40,3 +40,14 @@ export function isKorean(text) {
   const reg = /([(\uAC00-\uD7AF)|(\u3130-\u318F)])+/gi;
   return reg.test(text);
 }
+
+export function isString(obj) {
+  return Object.prototype.toString.call(obj) === "[object String]";
+}
+export function isObject(obj) {
+  return Object.prototype.toString.call(obj) === "[object Object]";
+}
+
+export function isHtmlElement(node) {
+  return node && node.nodeType === Node.ELEMENT_NODE;
+}

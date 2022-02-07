@@ -1,6 +1,6 @@
 import Vue from "vue";
 import LkMessage from "./message.vue"
-import { isObject } from "../../../utils/types"
+import { isObject } from "../../../utils/util"
 
 let MessageConstructor = Vue.extend(LkMessage);
 let instance;
