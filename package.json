@@ -13,7 +13,8 @@
     "@vue/composition-api": "^1.2.4",
     "core-js": "^2.6.5",
     "ts-loader": "8.2.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "webpack-aliyun-oss": "^0.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
