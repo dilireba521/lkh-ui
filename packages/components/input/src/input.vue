@@ -114,7 +114,7 @@ export default {
     showPassword: Boolean,
     width: {
       type: String,
-      default: "200px",
+      // default: "200px",
     },
     rows: {
       type: Number,

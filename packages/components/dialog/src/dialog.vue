@@ -6,10 +6,29 @@
         @click="handleClickMask"
         class="lk-dialog_mask"
       ></article>
-      <section class="lk-dialog_box">
-        <header class="lk-dialog_header">header</header>
-        <main class="lk-dialog_main">main</main>
-        <footer class="lk-dialog_footer" v-if="$slots.footer">
+      <section class="lk-dialog_box" :style="boxStyle">
+        <header class="lk-dialog_header">
+          <slot name="title">
+            <h3 class="lk-dialog_header_title">
+              {{ title }}
+            </h3>
+          </slot>
+          <i
+            class="lk-dialog_header_icon lk-icon-close"
+            @click="handleClickClose"
+          ></i>
+        </header>
+        <main class="lk-dialog_main">
+          <template v-if="$slots.default">
+            <slot></slot>
+          </template>
+          <div v-else class="lk-dialog_main_html" v-html="content"></div>
+        </main>
+        <footer
+          class="lk-dialog_footer"
+          :style="footerStyle"
+          v-if="$slots.footer"
+        >
           <slot name="footer"></slot>
         </footer>
       </section>
@@ -24,15 +43,11 @@ export default {
     visible: Boolean,
     title: {
       type: String,
-      default: "提示",
+      default: "",
     },
     width: {
       type: String,
       default: "30%",
-    },
-    height: {
-      type: String,
-      default: "",
     },
     content: {
       type: String,
@@ -41,6 +56,7 @@ export default {
     buttonAlign: {
       type: String,
       default: "right",
+      validator: (val) => ["left", "center", "right"].indexOf(val) > -1,
     },
     mask: {
       type: Boolean,
@@ -50,6 +66,20 @@ export default {
     drag: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    boxStyle() {
+      let style = {
+        width: this.width,
+      };
+      return style;
+    },
+    footerStyle() {
+      let style = {
+        textAlign: this.buttonAlign,
+      };
+      return style;
     },
   },
   watch: {
@@ -69,7 +99,14 @@ export default {
   },
   mounted() {},
   methods: {
-    handleClickMask() {},
+    handleClickMask() {
+      this.handleClickClose();
+    },
+    handleClickClose() {
+      if (this.visible) {
+        this.$emit("update:visible", false);
+      }
+    },
   },
 };
 </script>

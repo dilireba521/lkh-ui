@@ -158,23 +158,21 @@ export default {
       this.$refs.hiddenColumns.remove();
       this.getAllColumn();
     });
+    window.addEventListener("resize", this.getAllColumn);
   },
   methods: {
     handleScrollBody(e) {
-      if (this.leftData.length > 0 || this.rightData.length > 0) {
-        const headerWrap = this.$refs.headerWrap;
-        const bodyLeftWrap = this.$refs.bodyLeftWrap;
-        const scrollLeft = e.target.scrollLeft;
-        const scrollTop = e.target.scrollTop;
-        headerWrap.scrollLeft = scrollLeft;
-        if (this.isShowLeft) {
-          bodyLeftWrap.scrollTop = scrollTop;
-        }
-
-        this.isShowLeft = scrollLeft >= 5;
-        this.isShowRight =
-          scrollLeft < e.target.scrollWidth - e.target.offsetWidth - 5;
+      const headerWrap = this.$refs.headerWrap;
+      const bodyLeftWrap = this.$refs.bodyLeftWrap;
+      const scrollLeft = e.target.scrollLeft;
+      const scrollTop = e.target.scrollTop;
+      headerWrap.scrollLeft = scrollLeft;
+      if (this.isShowLeft && scrollTop) {
+        bodyLeftWrap.scrollTop = scrollTop;
       }
+      this.isShowLeft = scrollLeft >= 5;
+      this.isShowRight =
+        scrollLeft < e.target.scrollWidth - e.target.offsetWidth - 5;
     },
     handleSelectAll() {
       const status = this.selectChecked == "checked";
@@ -205,7 +203,10 @@ export default {
         let columns = [],
           leftWidth = 0,
           rightWidth = 0;
+        this.leftData = [];
+        this.rightData = [];
         this.barWidth = this.getScrollbarWidth();
+
         //找出所有子项
         findComponentChildren(this, "lkTableColumn").forEach((child) => {
           if (child.fixed == "left") {
@@ -359,7 +360,7 @@ export default {
             (columnsWidth[k].colMinWidth = relayWidth);
         }
       }
-
+      this.columnsWidth = []; //重制
       columnsWidth.forEach((item) => {
         const _width = parseInt(item.colWidth || item.colMinWidth);
         this.columnsWidth.push(_width);
@@ -386,6 +387,9 @@ export default {
       document.body.removeChild(e);
       return sw;
     },
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.getAllColumn);
   },
 };
 </script>

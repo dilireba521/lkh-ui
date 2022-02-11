@@ -1,0 +1,18 @@
+@include b(form){
+  $--form-line-height:40px;
+  @include m(item){
+    margin-bottom: 22px;
+    font-size: 14px;
+    &_label {
+      float: left;
+      line-height:$--form-line-height;
+      padding: 0 12px 0 0;
+      text-align: right;
+      vertical-align: middle;
+    }
+    &_content {
+      position: relative;
+      line-height:$--form-line-height;
+    }
+  }
+}
