@@ -6,11 +6,15 @@
 <script>
 export default {
   name: "lkForm",
+  componentName: "lkForm",
   provide() {
     return { FormInstance: this };
   },
   props: {
     model: {
+      type: Object,
+    },
+    rules: {
       type: Object,
     },
     labelWidth: {
@@ -23,6 +27,26 @@ export default {
       },
       default: "right",
     },
+  },
+  watch: {
+    rules() {},
+  },
+  data() {
+    return {
+      fields: [],
+    };
+  },
+  created() {
+    this.$on("lk.form.addField", (field) => {
+      if (field) {
+        this.fields.push(field);
+      }
+    });
+    this.$on("lk.form.removeField", (field) => {
+      if (field.prop) {
+        this.fields.splice(this.fields.indexOf(field), 1);
+      }
+    });
   },
 };
 </script>

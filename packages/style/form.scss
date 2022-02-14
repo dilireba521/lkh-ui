@@ -1,4 +1,5 @@
 @include b(form){
+  $name:&;
   $--form-line-height:40px;
   @include m(item){
     margin-bottom: 22px;
@@ -10,9 +11,18 @@
       text-align: right;
       vertical-align: middle;
     }
+    
     &_content {
       position: relative;
       line-height:$--form-line-height;
+    }
+    @include when(required){
+      #{$name + "-item_label:before"} {
+        content: "*";
+        font-size: 12px;
+        color: $danger;
+        margin-right: 4px;
+      }
     }
   }
 }

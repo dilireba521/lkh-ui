@@ -7,6 +7,8 @@ module.exports = {
       entry: 'examples/main.js',
       template: 'public/index.html',
       filename: 'index.html',
+      // 上述代码是修改你的资源根目录，改为你上传到oss上的目录，getTimeStr()是获取当前时间的格式化字符串，如：20200107211212
+      // publicPath: process.env.NODE_ENV !== 'development' ? ('https://xxx.com/dist/admin/' + getTimeStr() + '/') : './',
     }
   },
 
@@ -15,13 +17,13 @@ module.exports = {
     config.resolve.extensions = ['.js', '.ts', '.tsx', '.json', '.vue', '.css', '.scss'];
     let webpackAliyunOss = [
       new WebpackAliyunOss({
-        from: ['./dist/**'], // 上传那个文件或文件夹  可以是字符串或数组
         // dist: "/test",  // 需要上传到oss上的给定文件目录
         region: oss.region, // 只是示例，如果是别的地区请填别的地区
         accessKeyId: oss.accessKeyId, // 不知道ak和sk的百度以下把～
         accessKeySecret: oss.accessKeySecret,
         bucket: oss.bucket,  // bucket的name
         overwrite: true,//覆盖oss同名文件，必须为true否则再次上传时会报错
+        test: process.env.NODE_ENV === 'development'
       })
     ]
     config.plugins = [...config.plugins, ...webpackAliyunOss]

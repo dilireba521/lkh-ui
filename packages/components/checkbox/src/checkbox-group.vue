@@ -18,7 +18,8 @@ export default {
     value(val) {
       //TODO 数据变化考虑是否做change回调
       // eslint-disable-next-line no-console
-      console.log(val);
+      // console.log(val);
+      this.$emit("change", val);
     },
   },
 };

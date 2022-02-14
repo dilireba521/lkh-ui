@@ -6,6 +6,7 @@
   position: relative;
   height: $--switch-height;
   line-height: $--switch-height;
+  vertical-align: middle;
   cursor: pointer;
   &-input {
     position: absolute;
