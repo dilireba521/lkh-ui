@@ -90,8 +90,10 @@
 </template>
 <script>
 import { isKorean } from "../../../utils/util";
+import emitter from "../../../utils/mixins/emitter";
 export default {
   name: "lkInput",
+  mixins: [emitter],
   props: {
     type: {
       type: String,
@@ -120,10 +122,18 @@ export default {
       type: Number,
       default: 2,
     },
+    //验证事件
+    validateEvent: {
+      type: Boolean,
+      default: true,
+    },
   },
   watch: {
     value(val) {
       this.currentVal = val;
+      if (this.validateEvent) {
+        this.dispatch("lkFormItem", "lk.form.change", [val]);
+      }
     },
   },
   computed: {
@@ -203,6 +213,9 @@ export default {
     handleBlur(e) {
       this.focused = false;
       this.$emit("blur", e);
+      if (this.validateEvent) {
+        this.dispatch("lkFormItem", "lk.form.blur", [this.value]);
+      }
     },
     handleChange(e) {
       this.$emit("change", e.target.value);

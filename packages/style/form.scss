@@ -16,6 +16,15 @@
       position: relative;
       line-height:$--form-line-height;
     }
+    &_msg {
+      color: #f56c6c;
+      font-size: 12px;
+      line-height: 1;
+      padding-top: 4px;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
     @include when(required){
       #{$name + "-item_label:before"} {
         content: "*";

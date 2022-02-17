@@ -1,7 +1,36 @@
-# lkh-ui
+# NPM 安装
 
-Front end style framework based on Vue scaffold version 2.0
+```js
+npm instal lkui-vue  -S || yarn add lkui-vue
+```
 
-# install
+# CDN 安装
 
-yarn add lkh-ui or npm install lkh-ui
+```js
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/lkui-vue/lib/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/lkui-vue/lib/lk.umd.js"></script>
+```
+
+# vue 项目引入
+
+```js
+import Vue from "vue";
+import LkUI from "lkui-vue";
+import "lkui-vue/lib/index.css";
+import App from "./App.vue";
+
+Vue.use(LkUI);
+
+new Vue({
+  el: "#app",
+  render: (h) => h(App),
+});
+```
+
+# Developer
+
+```js
+老客户，dilireba
+```

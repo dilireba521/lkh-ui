@@ -3,14 +3,20 @@
     <label class="lk-form-item_label" :style="labelStyle">{{ label }}</label>
     <div class="lk-form-item_content" :style="contentStyle">
       <slot></slot>
-      <div class="lk-form-item_msg"></div>
+      <transition>
+        <div v-if="valid" class="lk-form-item_msg">
+          {{ validateMessage }}
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 <script>
 import Emitter from "../../../utils/mixins/emitter";
+import lkVerify from "./lkVerify";
 export default {
   name: "lkFormItem",
+  componentName: "lkFormItem",
   mixins: [Emitter],
   inject: ["FormInstance"],
   props: {
@@ -78,11 +84,16 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      valid: false,
+      validateMessage: "",
+      formModel: "",
+    };
   },
   mounted() {
     if (this.prop) {
       this.dispatch("lkForm", "lk.form.addField", [this]);
+      this.addValidateEvents();
     }
   },
   methods: {
@@ -98,6 +109,50 @@ export default {
         formRules = [];
       }
       return [].concat(selfRules || formRules || []).concat(requiredRule);
+    },
+    getFilteredRule(trigger) {
+      const rules = this.getRules();
+      return rules.filter((rule) => {
+        if (!rule.trigger || trigger === "") return true;
+        if (Array.isArray(rule.trigger)) {
+          return rule.trigger.indexOf(trigger) > -1;
+        } else {
+          return rule.trigger === trigger;
+        }
+      });
+    },
+    //验证规则，默认trigger为blur行为
+    validate(trigger) {
+      const rules = this.getFilteredRule(trigger);
+
+      //未定义验证规则
+      if ((!rules || rules.length === 0) && this.isRequired === undefined) {
+        return true;
+      }
+
+      this.formModel = this.FormInstance.model;
+      this.formRules = this.FormInstance.rules || this.rules;
+      if (this.formModel && this.formRules && this.prop !== "") {
+        let obj = new lkVerify(rules).single(this.formModel[this.prop]);
+        if (!obj.valid) {
+          this.validateMessage = obj.message;
+        }
+        this.valid = !obj.valid;
+      }
+    },
+    onFieldBlur() {
+      this.validate("blur");
+    },
+    onFieldChange() {
+      this.validate("change");
+    },
+    //添加验证事件
+    addValidateEvents() {
+      const rules = this.getRules();
+      if (rules.length || this.required !== undefined) {
+        this.$on("lk.form.blur", this.onFieldBlur);
+        this.$on("lk.form.change", this.onFieldChange);
+      }
     },
   },
   beforeDestroy() {

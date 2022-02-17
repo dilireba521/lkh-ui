@@ -1,13 +1,21 @@
 {
   "name": "lkui-vue",
-  "version": "1.0.1",
+  "version": "1.11.0",
   "private": false,
-  "main": "lib/lkh.umd.min.js",
+  "main": "lib/lk.umd.min.js",
+  "files": [
+    "lib",
+    "src",
+    "packages",
+    "types"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:theme": "gulp build --gulpfile build/gulpfile.js",
     "lint": "vue-cli-service lint",
-    "build-lib": "vue-cli-service build --target lib --name lkh --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name lk --dest lib src/index.js",
+    "npm-pub": "npm run lib && npm publish"
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
@@ -28,9 +36,14 @@
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
+    "cp-cli": "^1.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "github-markdown-css": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-sass": "^4.0.2",
     "highlight.js": "^9.3.0",
     "html-webpack-plugin": "^3.2.0",
     "markdown-it": "^8.4.1",
