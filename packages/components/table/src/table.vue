@@ -130,10 +130,11 @@ export default {
       return style;
     },
   },
+
   data() {
     return {
       tableData: this.data || [],
-      tableWidth: "0px",
+      boxWidth: 0,
       totalWidth: "0px",
       headColumns: [],
       leftHeadColumns: [],
@@ -153,11 +154,18 @@ export default {
       columnsFilter: [], // 表头，过滤掉扩展列的
     };
   },
+  updated() {
+    //组件渲染盒子宽度为0，组件更新时将会同步数据
+    if (this.boxWidth == 0 && this.$refs.box.clientWidth != 0) {
+      this.getAllColumn();
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       this.$refs.hiddenColumns.remove();
       this.getAllColumn();
     });
+    //改变视口大小，表格数据变化
     window.addEventListener("resize", this.getAllColumn);
   },
   methods: {
@@ -331,7 +339,6 @@ export default {
         item.colMinWidth && miniWidthSize++;
         item.colWidth && (widthsVal += parseInt(item.colWidth));
       });
-
       //理论宽度比盒子实际宽度小，重新计算没有对列宽度进行定义的项
       if (rawWidth < boxWidth && this.fit) {
         let surplusWidth = boxWidth - widthsVal, //除长度定义的总宽度
@@ -375,6 +382,7 @@ export default {
           currCaclWidth = bodyWrap.scrollWidth; //出去边框长度，直接取内容长度
         }
         this.totalWidth = currCaclWidth + "px";
+        this.boxWidth = boxWidth;
       });
     },
     // 获取浏览器滚动条的宽度

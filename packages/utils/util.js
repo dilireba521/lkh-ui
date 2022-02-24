@@ -55,3 +55,19 @@ export function isObject(obj) {
 export function isHtmlElement(node) {
   return node && node.nodeType === Node.ELEMENT_NODE;
 }
+
+//合并对象，移除原型链上继承的属性
+export function mergeObject(target) {
+  for (let i = 1; i < arguments.length; i++) {
+    let source = arguments[i] || {};
+    for (let item in source) {
+      if (source.hasOwnProperty(item)) {
+        let value = source[item];
+        if (value !== undefined) {
+          target[item] = value
+        }
+      }
+    }
+  }
+  return target
+}

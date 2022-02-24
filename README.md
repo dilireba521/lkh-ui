@@ -1,3 +1,7 @@
+# Demo 演示地址
+
+http://vue.lkhan.top/
+
 # NPM 安装
 
 ```js
@@ -10,7 +14,7 @@ npm instal lkui-vue  -S || yarn add lkui-vue
 <!-- 引入样式 -->
 <link rel="stylesheet" href="https://unpkg.com/lkui-vue/lib/index.css">
 <!-- 引入组件库 -->
-<script src="https://unpkg.com/lkui-vue/lib/lk.umd.js"></script>
+<script src="https://unpkg.com/lkui-vue/lib/index.umd.js"></script>
 ```
 
 # vue 项目引入

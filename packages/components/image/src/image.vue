@@ -14,6 +14,7 @@
       :style="imageInnerStyle"
       :lazy="lazy"
       v-bind="$attrs"
+      v-on="$listeners"
       @click="clickHandler"
     />
     <template v-if="preview">
@@ -49,8 +50,20 @@ export default {
       type: Number,
       default: 2000,
     },
+    height: String,
+    width: String,
   },
   computed: {
+    imageStyle() {
+      let style = {};
+      if (this.width) {
+        style["width"] = this.width;
+      }
+      if (this.height) {
+        style["height"] = this.height;
+      }
+      return style;
+    },
     imageInnerStyle() {
       const { fit } = this;
       return fit

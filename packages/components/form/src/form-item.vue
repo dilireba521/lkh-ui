@@ -4,7 +4,10 @@
     <div class="lk-form-item_content" :style="contentStyle">
       <slot></slot>
       <transition>
-        <div v-if="valid" class="lk-form-item_msg">
+        <div
+          v-if="validateMessage && validateMessage.length > 0"
+          class="lk-form-item_msg"
+        >
           {{ validateMessage }}
         </div>
       </transition>
@@ -13,7 +16,8 @@
 </template>
 <script>
 import Emitter from "../../../utils/mixins/emitter";
-import lkVerify from "./lkVerify";
+import AsyncValidator from "async-validator";
+
 export default {
   name: "lkFormItem",
   componentName: "lkFormItem",
@@ -33,13 +37,20 @@ export default {
       validator(val) {
         return ["left", "center", "right"].indexOf(val) > -1;
       },
-      default: "right",
     },
   },
   computed: {
+    fieldValue() {
+      const model = this.FormInstance && this.FormInstance.model;
+      if (!model || !this.prop) {
+        return;
+      }
+      return model[this.prop];
+    },
     isRequired() {
       let _isRequired = false;
       let rules = this.getRules();
+
       if (rules && rules.length) {
         rules.every((rule) => {
           if (rule.required) {
@@ -93,7 +104,14 @@ export default {
   mounted() {
     if (this.prop) {
       this.dispatch("lkForm", "lk.form.addField", [this]);
-      this.addValidateEvents();
+
+      let initValue = this.fieldValue;
+      if (Array.isArray(initValue)) {
+        initValue = [].concat(initValue);
+      }
+      Object.defineProperty(this, "initValue", {
+        value: initValue,
+      });
     }
   },
   methods: {
@@ -110,48 +128,47 @@ export default {
       }
       return [].concat(selfRules || formRules || []).concat(requiredRule);
     },
-    getFilteredRule(trigger) {
-      const rules = this.getRules();
-      return rules.filter((rule) => {
-        if (!rule.trigger || trigger === "") return true;
-        if (Array.isArray(rule.trigger)) {
-          return rule.trigger.indexOf(trigger) > -1;
-        } else {
-          return rule.trigger === trigger;
-        }
-      });
-    },
-    //验证规则，默认trigger为blur行为
-    validate(trigger) {
-      const rules = this.getFilteredRule(trigger);
 
+    //验证规则，默认trigger为blur行为
+    validate(callback) {
+      const rules = this.getRules();
       //未定义验证规则
       if ((!rules || rules.length === 0) && this.isRequired === undefined) {
+        callback();
         return true;
       }
 
-      this.formModel = this.FormInstance.model;
-      this.formRules = this.FormInstance.rules || this.rules;
-      if (this.formModel && this.formRules && this.prop !== "") {
-        let obj = new lkVerify(rules).single(this.formModel[this.prop]);
-        if (!obj.valid) {
-          this.validateMessage = obj.message;
+      const descriptor = {};
+      descriptor[this.prop] = rules;
+      const validator = new AsyncValidator(descriptor);
+      const model = {};
+      model[this.prop] = this.FormInstance.model[this.prop];
+      validator.validate(
+        model,
+        { firstFields: true },
+        (errors, invalidFields) => {
+          this.validateMessage = errors ? errors[0].message : "";
+          callback(this.validateMessage, invalidFields);
         }
-        this.valid = !obj.valid;
+      );
+    },
+    resetField() {
+      if (!this.FormInstance.model) {
+        // eslint-disable-next-line no-console
+        console.warn("[Form]model is required for resetFields to work.");
+        return;
       }
-    },
-    onFieldBlur() {
-      this.validate("blur");
-    },
-    onFieldChange() {
-      this.validate("change");
-    },
-    //添加验证事件
-    addValidateEvents() {
-      const rules = this.getRules();
-      if (rules.length || this.required !== undefined) {
-        this.$on("lk.form.blur", this.onFieldBlur);
-        this.$on("lk.form.change", this.onFieldChange);
+      if (!this.prop) {
+        // eslint-disable-next-line no-console
+        console.warn("[Form]prop is required for resetFields to work.");
+        return;
+      }
+      this.validateMessage = "";
+      let value = this.fieldValue;
+      if (Array.isArray(value)) {
+        this.FormInstance.model[this.prop] = [].concat(this.initValue);
+      } else {
+        this.FormInstance.model[this.prop] = this.initValue;
       }
     },
   },

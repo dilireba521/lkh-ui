@@ -28,6 +28,22 @@
     &_title {
       font-size: 18px;
       color: $c3;
+      [class^="lk-icon-"], 
+      [class*=" lk-icon-"]{
+        font-size: 24px;
+        @include when(success){
+          color:$success
+        }
+        @include when(warning){
+          color:$warning
+        }
+        @include when(info){
+          color:$info
+        }
+        @include when(danger){
+          color:$danger
+        }
+      }
     }
     &_icon{
       position: absolute;

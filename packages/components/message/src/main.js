@@ -84,6 +84,7 @@ Message.closeAll = function () {
   }
 }
 
+//注册全局组件
 Message.install = function (Vue) {
   Vue.prototype.$message = Message;
 }

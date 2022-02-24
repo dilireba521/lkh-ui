@@ -1,24 +1,24 @@
 {
   "name": "lkui-vue",
-  "version": "1.11.0",
+  "version": "1.12.2",
   "private": false,
-  "main": "lib/lk.umd.min.js",
+  "main": "lib/index.umd.min.js",
   "files": [
     "lib",
     "src",
-    "packages",
-    "types"
+    "packages"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:theme": "gulp build --gulpfile build/gulpfile.js",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name lk --dest lib src/index.js",
-    "npm-pub": "npm run lib && npm publish"
+    "lib": "vue-cli-service build --target lib --name index --dest lib src/index.js",
+    "pub": "npm run lib && npm run build:theme && npm publish"
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
+    "async-validator": "^4.0.7",
     "core-js": "^2.6.5",
     "ts-loader": "8.2.0",
     "typescript": "^4.4.4",

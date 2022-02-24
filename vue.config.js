@@ -7,20 +7,20 @@ module.exports = {
   pages: {
     index: {
       //TODO 发布到npm入口文件 “./src/index.js”
-      // entry: './src/index.js',
-      entry: 'examples/main.js',
+      entry: './src/index.js',
+      // entry: 'examples/main.js',
       template: 'public/index.html',
       filename: 'index.html',
     }
   },
 
   configureWebpack: (config) => {
-    console.log("NODE_ENV=======", NODE_ENV);
     //自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
     config.resolve.extensions = ['.js', '.ts', '.tsx', '.json', '.vue', '.css', '.scss'];
     // let webpackAliyunOss = [
     //   new WebpackAliyunOss({
-    //     // dist: "/test",  // 需要上传到oss上的给定文件目录
+    //     // dist: "/lkui",  // 需要上传到oss上的给定文件目录
+    //     from: "./dist",
     //     region: oss.region, // 只是示例，如果是别的地区请填别的地区
     //     accessKeyId: oss.accessKeyId, // 不知道ak和sk的百度以下把～
     //     accessKeySecret: oss.accessKeySecret,
