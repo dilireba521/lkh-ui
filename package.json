@@ -14,11 +14,10 @@
     "build:theme": "gulp build --gulpfile build/gulpfile.js",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name index --dest lib src/index.js",
-    "pub": "npm run lib && npm run build:theme && npm publish"
+    "pub": "cross-env BABEL_ENV=pub npm run lib && npm run build:theme && npm publish"
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
-    "async-validator": "^4.0.7",
     "core-js": "^2.6.5",
     "ts-loader": "8.2.0",
     "typescript": "^4.4.4",
@@ -27,20 +26,23 @@
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
+    "@typescript-eslint/parser": "^5.26.0",
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "@vue/component-compiler-utils": "^3.2.2",
+    "async-validator": "^4.0.7",
     "babel-eslint": "^10.0.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
     "cp-cli": "^1.0.2",
+    "cross-env": "^7.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "github-markdown-css": "^4.0.0",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-cssmin": "^0.2.0",
     "gulp-sass": "^4.0.2",
@@ -74,7 +76,7 @@
     ],
     "rules": {},
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@typescript-eslint/parser"
     }
   },
   "license": "MIT",

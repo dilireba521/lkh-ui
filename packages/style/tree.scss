@@ -1,0 +1,14 @@
+@include b(tree){
+ @include m(node){
+  padding-left: 20px;   
+  &_content{
+    height: 26px;
+    cursor: pointer;
+    [class*='lk-icon-']{
+      &.is-leaf{
+        color:transparent;
+      }
+    }
+  }
+ }
+}

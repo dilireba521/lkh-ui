@@ -7,7 +7,11 @@
         class="lk-dialog_mask"
       ></article>
       <section class="lk-dialog_box" :style="boxStyle">
-        <header class="lk-dialog_header">
+        <header
+          @mousedown="handleMouseDown"
+          :class="dialogHeaderStyle"
+          class="lk-dialog_header"
+        >
           <slot name="title">
             <div class="lk-dialog_header_title">
               <i :class="titleIcon"></i>
@@ -49,6 +53,9 @@
   </transition>
 </template>
 <script>
+import { on, off } from "../../../utils/dom";
+import { rafThrottle } from "../../../utils/util";
+
 export default {
   name: "lkDialog",
   props: {
@@ -88,10 +95,18 @@ export default {
     },
   },
   computed: {
+    dialogHeaderStyle() {
+      let _class = { "is-drag": this.drag };
+      return _class;
+    },
     boxStyle() {
+      const { offsetY, offsetX } = this.transform;
       let style = {
         width: this.width,
+        marginLeft: `${offsetX}px`,
+        marginTop: `${offsetY}px`,
       };
+
       return style;
     },
     footerStyle() {
@@ -114,9 +129,24 @@ export default {
   data() {
     return {
       visibleDialog: false,
+      transform: {
+        offsetX: 0,
+        offsetY: "15%",
+      },
     };
   },
   methods: {
+    //
+    handleMouseDown(e) {
+      this._dragHandler = rafThrottle(() => {
+        // console.log(ev);
+      });
+      on(document, "mousemove", this._dragHandler);
+      on(document, "mouseup", () => {
+        off(document, "mousemove", this._dragHandler);
+      });
+      e.preventDefault();
+    },
     handleClickMask() {
       this.handleClickClose();
     },

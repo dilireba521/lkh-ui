@@ -2,7 +2,7 @@
 import Vue from "vue";
 import { hasOwn } from "./util";
 const isServer = Vue.prototype.$isServer;
-//设置浮层元素尺寸位置
+//设置浮层元素尺寸位置，依赖倒置原则（依赖于抽象）
 const setElementSize = function (locationElem, elem, direction) {
   //获取定位元素的位置信息
   let rect = locationElem.getBoundingClientRect(),
@@ -114,13 +114,13 @@ const getScrollParent = function (elem) {
   return getScrollParent(parent);
 };
 
-//获取原属样式
+//获取原属样式，接口隔离（保证使用的都是最小接口）
 const getStyleComputedProperty = function (elem, prop) {
   var css = window.getComputedStyle(elem, null);
   return css[prop];
 };
 
-//为element注册事件监听
+//为element注册事件监听，单一职责（一个类只负责一个职责）
 const on = (function () {
   if (!isServer && document.addEventListener) {
     return function (element, event, handler) {

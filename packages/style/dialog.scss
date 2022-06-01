@@ -6,6 +6,9 @@
   left: 0;
   overflow: auto;
   z-index: 1000;
+  display: flex;
+  justify-content:center;
+  align-items:center;
   @include e(mask){
     position: absolute;
     width: 100%;
@@ -16,7 +19,7 @@
   @include e(box){
     position: relative;
     width: 50%;
-    margin: 15vh auto 50px;
+    margin-bottom: 50px;
     background: #fff;
     border-radius: 2px;
     box-shadow: 0 0 2px $c9;
@@ -25,6 +28,9 @@
   @include e(header){
     position: relative;
     padding: 20px 20px 10px;
+    @include when(drag){
+      cursor: move;
+    }
     &_title {
       font-size: 18px;
       color: $c3;

@@ -2,11 +2,12 @@
   "compilerOptions": {
       "target": "es6", 
       "module": "commonjs", 
-      "strict": true, 
+      "strict": false, 
       "allowJs": true,
       "strictNullChecks": false, 
       "esModuleInterop": true, 
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "jsx": "preserve",
   },
   "exclude": ["node_modules"]
 }
